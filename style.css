@@ -1,0 +1,32 @@
+body{
+    background-color: darkgray;
+}
+
+h1{
+    text-align: center;
+}
+
+.threads{
+    background-color: gray;
+    border-radius: 20px;
+    padding: 1%;
+    margin: 15px;
+}
+
+#ctButton {
+    padding: 10px;
+    border-radius: 20px;
+    margin-left: 15px;
+    background-color:maroon;
+    color:azure;
+}
+
+.threads h6{
+    margin-left: 2%;
+    color:azure;
+}
+
+.threadOpt{
+    background-color: black;
+    color: azure;
+}
