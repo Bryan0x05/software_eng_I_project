@@ -12,6 +12,27 @@
     <title>Thread</title>
   </head>
   <body>
+    <div class="modal fade" id="CreateCommentModal" tabindex="-1" aria-labelledby="CreateCommentModalLabel" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+          <!--This is where the modal content background and text color are set-->
+          <div class="modal-content text-white">
+            <div class="modal-header">
+              <h2 class="modal-title fs-5" id="CreateCommentModalLabel">New Comment</h2>
+              <!--Button back is set to white here to make it stand out on black background-->
+              <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!--Modal body is here-->
+            <div class="modal-body">
+              <textarea class = "thread-title" placeholder = "Enter thread title"></textarea>
+              <br>
+              <textarea class ="thread-body" placeholder="Enter thread body"></textarea>
+            </div>
+            <div class="modal-footer">
+              <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Post</button>
+            </div>
+          </div>
+        </div>
+    </div>
     <div class="container">
         <div class="row justify-content-center">
             <div id="Thread" class="col-md-8 Posts">
@@ -23,6 +44,9 @@
                     caused by car accidents.
                 </p>
                 <p class="Author">Post By: Aidan</p>
+                <button class = "btn" type="button" id="ccButton" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">
+                    ⤷
+                </button>
             </div>
             <div class="col-md-7 Posts">
                 <p>Man I love eggs!</p>
