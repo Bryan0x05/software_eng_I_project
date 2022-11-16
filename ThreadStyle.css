@@ -1,5 +1,5 @@
 body {
-    background-color: #4E3524;
+    background-color: #0D1B2A;
     padding-bottom: none;
 }
 
@@ -12,19 +12,20 @@ body {
 }
 
 .Posts {
-    background-color: azure;
+    background-color: #415A77;
+    color:#E0E1DD;
     margin-bottom: 2%;
     border-radius: 8px;
     padding: 1%;
-    border: 3px solid black;
+    border: 3px solid #778DA9;
 }
 
 .Author {
-    background-color: darkcyan;
+    background-color: #1B263B;
     border-radius: 3px;
     width: fit-content;
     padding: 2px;
-    border: 1px solid black;
+    border: 1px solid #778DA9;
 }
 
 h5 {
@@ -37,37 +38,36 @@ h5 {
     padding: 10px;
     border-radius: 20px;
     margin-left: 15px;
-    background-color:#F3FFB6;
-    color: #D38B5D;
-    border: 2px solid #2C5530;
+    background-color:#1B263B;
+    color: #E0E1DD;
+    border: 2px solid #415A77;
 }
 
 .modal-content {
-    background-color:gray;
+    background-color:#415A77;
     color:white;
 }
 
-.thread-title{
-    background-color: black;
-    border-color: black;
+.thread-title {
+    background-color: #778DA9;
+    border-color: #1B263B;
     width: 100%;
     height: 30px;
-    color: black;
+    color: white;
     resize: none;
 }
-.thread-body{
-    background-color: gray;
-    border-color: lightgray;
+.thread-body {
+    background-color: #778DA9;
+    border-color: #1B263B;
     width: 100%;
     height: 300px;
-    color: black;
+    color: white;
     resize: none;
 }
-
 .thread-body::placeholder {
-    color: lightgray;
+    color: #E0E1DD;
 }
 
 .thread-title::placeholder {
-    color: lightgray;
+    color: #E0E1DD;
 }

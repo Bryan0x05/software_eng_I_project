@@ -26,7 +26,7 @@
           <div class="modal-body">
             <textarea class = "thread-title" placeholder = "Enter thread title"></textarea>
             <br>
-            <textarea class ="thread-body" placeholder="Enter thread body"></textarea>
+            <textarea class = "thread-body" placeholder="Enter thread body"></textarea>
             <br>
             <input list="tags">
             <datalist id="tags">
@@ -95,13 +95,13 @@
         <!--This is where the modal content background and text color are set-->
         <div class="modal-content text-white">
           <div class="modal-header">
-            <h2 class="modal-title fs-5" id="DeletePost">Edit Post</h2>
+            <h2 class="modal-title fs-5" id="DeletePost">Confirmation</h2>
             <!--Button back is set to white here to make it stand out on black background-->
             <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <!--Modal body is here-->
           <div class="modal-body">
-            <h1> Post Deleted! </h1>
+            <h1 id="delete-message"> Post Deleted! </h1>
           </div>
           <div class="modal-footer">
             <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Okay</button>

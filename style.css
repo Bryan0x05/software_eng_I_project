@@ -1,16 +1,16 @@
 body{
-    background-color: #2C5530;
+    background-color: #0D1B2A;
 }
 
 .container {
-    background-color: #739E82;
+    background-color: #0D1B2A;
     min-height: 700px;
 }
 
 h1{
     text-align: center;
-    background-color: #99621E;
-    color: #D38B5D;
+    background-color: #1B263B;
+    color: #E0E1DD;
     width: fit-content;
     padding: 5px;
     margin: auto;
@@ -22,7 +22,7 @@ h1{
 }
 
 .threads{
-    background-color: #F3FFB6;
+    background-color: #778DA9;
     border-radius: 20px;
     padding: 1%;
     margin: 15px;
@@ -33,14 +33,14 @@ h1{
     padding: 10px;
     border-radius: 20px;
     margin-left: 15px;
-    background-color:#F3FFB6;
-    color: #D38B5D;
-    border: 2px solid #2C5530;
+    background-color:#1B263B;
+    color: #E0E1DD;
+    border: 2px solid #778DA9;
 }
 
 .threads h6{
     margin-left: 2%;
-    color: #D38B5D;
+    color: white;
 }
 
 .threadOpt{
@@ -50,10 +50,10 @@ h1{
 
 /* Login Modal */
 .login-username {
-    background-color: dimgray;
-    border-color: lightgray;
+    background-color: #778DA9;
+    border-color: #415A77;
     width: 100%;
-    color: white;
+    color: #E0E1DD;
 }
 
 .login-username::placeholder {
@@ -61,10 +61,10 @@ h1{
 }
 
 .login-password {
-    background-color: dimgray;
-    border-color: lightgray;
+    background-color: #778DA9;
+    border-color: #415A77;
     width: 100%;
-    color: white;
+    color: #E0E1DD;
 }
 
 .login-password::placeholder {
@@ -74,12 +74,12 @@ h1{
 /* Thread Modal */
 .modal-content
 {
-    background-color:gray;
+    background-color:#415A77;
     color:white;
 }
 .thread-title{
-    background-color: gray;
-    border-color: lightgray;
+    background-color: #778DA9;
+    border-color: #1B263B;
     width: 100%;
     height: 30px;
     color: white;
@@ -87,8 +87,8 @@ h1{
 }
 
 .thread-body{
-    background-color: gray;
-    border-color: lightgray;
+    background-color: #778DA9;
+    border-color: #1B263B;
     width: 100%;
     height: 300px;
     color: white;
@@ -96,10 +96,14 @@ h1{
 }
 
 .thread-body::placeholder {
-    color: lightgray;
+    color: #E0E1DD;
 }
 
 .thread-title::placeholder {
-    color: lightgray;
+    color: #E0E1DD;
 }
 
+#delete-message{
+    background-color:#415A77;
+
+}
