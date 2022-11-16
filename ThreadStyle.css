@@ -3,6 +3,16 @@ body {
     padding-bottom: none;
 }
 
+.header {
+    text-align: center;
+}
+
+#header {
+    background-color: #F3FFB6;
+    color:#D38B5D;
+    font-size: xxx-large;
+}
+
 .container {
     margin-bottom: none;
 }
