@@ -30,3 +30,31 @@ h1{
     background-color: black;
     color: azure;
 }
+.modal-content
+{
+    background-color:gray;
+    color:white;
+}
+.thread-title{
+    background-color: gray;
+    border-color: lightgray;
+    width: 100%;
+    height: 30px;
+    color: white;
+}
+.thread-body{
+    background-color: gray;
+    border-color: lightgray;
+    width: 100%;
+    height: 300px;
+    color: white;
+}
+
+.thread-body::placeholder {
+    color: lightgray;
+}
+
+.thread-title::placeholder {
+    color: lightgray;
+}
+
