@@ -47,6 +47,31 @@ h1{
     background-color: black;
     color: azure;
 }
+
+/* Login Modal */
+.login-username {
+    background-color: dimgray;
+    border-color: lightgray;
+    width: 100%;
+    color: white;
+}
+
+.login-username::placeholder {
+    color: lightgray;
+}
+
+.login-password {
+    background-color: dimgray;
+    border-color: lightgray;
+    width: 100%;
+    color: white;
+}
+
+.login-password::placeholder {
+    color: lightgray;
+}
+
+/* Thread Modal */
 .modal-content
 {
     background-color:gray;
