@@ -12,6 +12,9 @@
     <title>Thread</title>
   </head>
   <body>
+    <div class="header">
+      <a class="btn" id="header" href="index.html" target="_self">Discussion Board</a>
+    </div>
     <div class="modal fade" id="CreateCommentModal" tabindex="-1" aria-labelledby="CreateCommentModalLabel" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog">
           <!--This is where the modal content background and text color are set-->
@@ -23,9 +26,7 @@
             </div>
             <!--Modal body is here-->
             <div class="modal-body">
-              <textarea class = "thread-title" placeholder = "Enter thread title"></textarea>
-              <br>
-              <textarea class ="thread-body" placeholder="Enter thread body"></textarea>
+              <textarea class ="thread-body" placeholder="Enter Comment Text"></textarea>
             </div>
             <div class="modal-footer">
               <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Post</button>
