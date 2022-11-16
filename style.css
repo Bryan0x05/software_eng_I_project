@@ -1,29 +1,46 @@
 body{
-    background-color: darkgray;
+    background-color: #2C5530;
+}
+
+.container {
+    background-color: #739E82;
+    min-height: 700px;
 }
 
 h1{
     text-align: center;
+    background-color: #99621E;
+    color: #D38B5D;
+    width: fit-content;
+    padding: 5px;
+    margin: auto;
+    border-radius: 5px;
+}
+
+#threadTitle {
+    font-size: 2em;
 }
 
 .threads{
-    background-color: gray;
+    background-color: #F3FFB6;
     border-radius: 20px;
     padding: 1%;
     margin: 15px;
+    border: 3px solid black;
 }
 
 #ctButton {
     padding: 10px;
     border-radius: 20px;
     margin-left: 15px;
-    background-color:maroon;
-    color:azure;
+    background-color:#F3FFB6;
+    color: #D38B5D;
+    border: 2px solid #2C5530;
 }
 
 .threads h6{
     margin-left: 2%;
-    color:azure;
+    color: #D38B5D;
 }
 
 .threadOpt{

@@ -1,0 +1,33 @@
+body {
+    background-color: #4E3524;
+    padding-bottom: none;
+}
+
+.container {
+    margin-bottom: none;
+}
+
+#Thread {
+    margin-top: 2%;
+}
+
+.Posts {
+    background-color: azure;
+    margin-bottom: 2%;
+    border-radius: 8px;
+    padding: 1%;
+    border: 3px solid black;
+}
+
+.Author {
+    background-color: darkcyan;
+    border-radius: 3px;
+    width: fit-content;
+    padding: 2px;
+    border: 1px solid black;
+}
+
+h5 {
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+}
