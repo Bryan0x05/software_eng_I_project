@@ -44,8 +44,9 @@ h1{
 }
 
 .threadOpt{
-    background-color: black;
-    color: azure;
+    background-color: #1B263B;
+        border-color: #1B263B;
+        color: #E0E1DD;
 }
 
 /* Login Modal */
