@@ -29,11 +29,11 @@
             <br>
             <textarea class = "thread-body" placeholder="Enter thread body"></textarea>
             <br>
-            <input list="tags" placeholder="Select Tag">
-            <datalist id="tags">
-              <option value="Question">
-              <option value="Assignment">
-            </datalist>
+            <select list="tags" required>
+              <option value="">Select tag</option>
+              <option value="Question">Question</option>
+              <option value="Assignment">Assignment</option>
+            </select>  
           </div>
           <div class="modal-footer">
             <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Post</button>
