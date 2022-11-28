@@ -1,0 +1,111 @@
+body{
+    background-color: #0D1B2A;
+}
+
+.container {
+    background-color: #0D1B2A;
+    min-height: 700px;
+}
+
+h1{
+    text-align: center;
+    background-color: #1B263B;
+    color: #E0E1DD;
+    width: fit-content;
+    padding: 5px;
+    margin: auto;
+    border-radius: 5px;
+}
+
+.threadTitle {
+    font-size: 2em;
+    color: #E0E1DD;
+}
+
+.threads{
+    background-color: #778DA9;
+    border-radius: 20px;
+    padding: 1%;
+    margin: 15px;
+    border: 3px solid black;
+}
+
+#ctButton {
+    padding: 10px;
+    border-radius: 20px;
+    margin-left: 15px;
+    background-color:#1B263B;
+    color: #E0E1DD;
+    border: 2px solid #778DA9;
+}
+
+.threads h6{
+    margin-left: 2%;
+    color: white;
+}
+
+.threadOpt{
+    background-color: #1B263B;
+        border-color: #1B263B;
+        color: #E0E1DD;
+}
+
+/* Login Modal */
+.login-username {
+    background-color: #778DA9;
+    border-color: #415A77;
+    width: 100%;
+    color: #E0E1DD;
+}
+
+.login-username::placeholder {
+    color: lightgray;
+}
+
+.login-password {
+    background-color: #778DA9;
+    border-color: #415A77;
+    width: 100%;
+    color: #E0E1DD;
+}
+
+.login-password::placeholder {
+    color: lightgray;
+}
+
+/* Thread Modal */
+.modal-content
+{
+    background-color:#415A77;
+    color:#E0E1DD;
+}
+.create-thread-title{
+    background-color: #778DA9;
+    border-color: #1B263B;
+    width: 100%;
+    height: 30px;
+    color: #E0E1DD;
+    resize: none;
+}
+
+.create-thread-body{
+    background-color: #778DA9;
+    border-color: #1B263B;
+    width: 100%;
+    height: 300px;
+    color: #E0E1DD;
+    resize: none;
+}
+
+.create-thread-body::placeholder {
+    color: #E0E1DD;
+}
+
+.create-thread-title::placeholder {
+    color: #E0E1DD;
+}
+
+.delete-message{
+    background-color:#415A77;
+
+}
