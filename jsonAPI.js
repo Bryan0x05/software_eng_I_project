@@ -220,8 +220,24 @@ function SortByTime(DiscussionBoard)
     return sorted;
 }; 
 
-// todo - function to sort nested threads/top level threads by timestamp
-       // function returning the list of top level threads
+
+// returns a list of all threads
+// If you want a particular thread and it's nested comments,
+//      pass the id of that thrad to GetNestedThread
+function GetAllThreads(DiscussionBoard)
+{
+    DiscussionBoard.refresh();
+    let Threads = [];
+    let keys = Object.keys(DiscussionBoard.PostList);
+    for(let i = 0; i < keys.length; ++i)
+    {
+        if(DiscussionBoard.PostList[keys[i]].Title != undefined)
+        {
+            Threads.push(DiscussionBoard.PostList[keys[i]]);
+        }
+    }
+    return Threads;
+}
 
 // todo - implement tag creation and management (maybe another json file with a list)
 // todo - implement user management, keeping track of users and their level of privilege
@@ -239,6 +255,8 @@ let db = new DiscussionBoard();
 
 //db.print();
 
-console.log(GetNestedThread(db, "alex_1669611033378"));
-console.log(db.PostList);
-console.log(SortByTime(db));
+//console.log(GetNestedThread(db, "alex_1669611033378"));
+//console.log(db.PostList);
+//console.log(SortByTime(db));
+
+console.log(GetAllThreads(db))
