@@ -203,6 +203,23 @@ function GetNestedThread(DiscussionBoard, PostId)
     return parent;
 }
 
+function SortByTime(DiscussionBoard) 
+{
+    DiscussionBoard.refresh();
+    let tempArr = [];
+    for(var post in DiscussionBoard.PostList) {
+        tempArr.push([post, DiscussionBoard.PostList[post]]);
+    }
+
+    tempArr.sort(function(a, b){return a[1].TimeStamp - b[1].TimeStamp});
+
+    let sorted = {}
+    tempArr.forEach(function(elem){
+        sorted[elem[0]] = elem[1];
+    });
+    return sorted;
+}; 
+
 // todo - function to sort nested threads/top level threads by timestamp
        // function returning the list of top level threads
 
@@ -223,3 +240,5 @@ let db = new DiscussionBoard();
 //db.print();
 
 console.log(GetNestedThread(db, "alex_1669611033378"));
+console.log(db.PostList);
+console.log(SortByTime(db));
