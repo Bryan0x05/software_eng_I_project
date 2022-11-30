@@ -1,0 +1,23 @@
+{
+  "name": "software_eng_i_project",
+  "version": "1.0.0",
+  "description": "Prototype v2 for Software Engineering I Term Project",
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.5.4"
+  },
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Bryan0x05/software_eng_I_project.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Bryan0x05/software_eng_I_project/issues"
+  },
+  "homepage": "https://github.com/Bryan0x05/software_eng_I_project#readme"
+}

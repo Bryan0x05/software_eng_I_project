@@ -1,0 +1,13 @@
+TO SET UP THE ENVIRONMENT
+
+1. ensure you have nodejs installed
+    you can test by running node --version
+
+2. cd to repo in terminal of choice
+3. run 'npm i'
+    this will install the dependencies
+4. To start the server run 'node ./index.js'
+    You should see console output with a link to the live site. Go to that URL.
+5. The prototype is now running.
+
+** You only need to run 'npm i' the FIRST time you clone the repo. After that, to run the prototype you ONLY NEED TO RUN 'node ./index.js'
