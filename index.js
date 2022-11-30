@@ -245,7 +245,6 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    console.log('a user connected');
 
     // expects nothing, returns a list of all threads (not nested)
     socket.on('GetAllThreads', () => {
@@ -264,7 +263,7 @@ io.on('connection', (socket) => {
 
     // expects {Author: string, Title: string, Body: string, Tag: string}
     socket.on('CreateThread', (msg) => {
-        io.emit('CreateThread', CreateThread(db, msg.Author, msg.Body, msg.Tag));
+        io.emit('CreateThread', CreateThread(db, msg.Author, msg.Title, msg.Body, msg.Tag));
     })
 
     // expects {ParentId: string, Author: string, Body: string}
@@ -289,7 +288,7 @@ io.on('connection', (socket) => {
     })
 
     // expects {User: string, PostId: string}
-    // sending user as "admin" will allow deletion of anything
+    // sending user as "admin" will allow deletion of anything-
     socket.on('DeletePost', (msg) => {
         DeletePost(db, msg.User, msg.PostId);
     })

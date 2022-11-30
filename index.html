@@ -233,14 +233,23 @@ h1{
       var socket = io();
 
       function TestFunction() {
-        //socket.emit('GetAllThreads')
-        socket.emit('GetNestedDiscussionBoard');
+
+        //socket.emit('CreateThread', {Author: "Bryan", Title: "This is a cool site", Body: "Team 5 rules", Tag: "Bragging"})
+        socket.emit('GetAllThreads');
+
+        //socket.emit('GetNestedDiscussionBoard');
         //socket.emit('GetNestedThread', {Id: "alex_1669611033378"});
+        //socket.emit('DeletePost', {User: "admin", PostId: threads[threads.length-1].Id});
       }
 
       socket.on('GetAllThreads', function(msg) {
         let threads = msg;
-        console.log(threads);
+        //console.log(threads)
+        for(let i = 0; i < threads.length; ++i)
+        {
+          console.log(threads[i].Title, threads[i].Author);
+
+        }
       });
 
       socket.on('GetNestedDiscussionBoard', function(msg) {
