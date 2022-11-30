@@ -166,7 +166,7 @@ h1{
                 </button>
             </div>
         </div>
-        <div class="row justify-content-center">
+        <div id="Threads" class="row justify-content-center">
           <div class="threads col-md-8">
               <h6>Example Author</h6>
               <hr>
@@ -228,6 +228,7 @@ h1{
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io();
@@ -243,12 +244,26 @@ h1{
       }
 
       socket.on('GetAllThreads', function(msg) {
+        //clears current threads
+        $("#Threads div").remove();
+
+        //sets the response to the handle to a more readable variable
         let threads = msg;
-        //console.log(threads)
+
+        console.log(threads)
+
+        //Creates a new Thread element onto the page
         for(let i = 0; i < threads.length; ++i)
         {
-          console.log(threads[i].Title, threads[i].Author);
-
+            $("#Threads").append(`<div id=${threads[i].Id} class="threads col-md-8"></div>`);
+            $(`#${threads[i].Id}`).append(`<h6>${threads[i].Author}<h6>`);
+            $(`#${threads[i].Id}`).append('<hr>');
+            $(`#${threads[i].Id}`).append(`<h6 class="threadTitle">${threads[i].Title}</h6>`);
+            $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↑</button>');
+            $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↓</button>');
+            $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>');
+            $(`#${threads[i].Id}`).append('<button type="button" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>');
+            $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
         }
       });
 
