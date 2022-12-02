@@ -120,6 +120,55 @@ h1{
 
 }
 
+.Posts {
+    background-color: #415A77;
+    color:#E0E1DD;
+    margin-bottom: 2%;
+    border-radius: 8px;
+    padding: 1%;
+    border: 3px solid #778DA9;
+}
+
+.Author {
+    background-color: #1B263B;
+    border-radius: 3px;
+    width: fit-content;
+    padding: 2px;
+    border: 1px solid #778DA9;
+    display: inline-block;
+}
+
+h5 {
+    border-bottom: 1px solid black;
+    margin-bottom: 10px;
+}
+
+.netvote{
+    display:inline-block;
+    background-color: #1B263B;
+    border-color: #1B263B;
+    color: #E0E1DD;
+    padding: 2px;
+    border-radius: 3px;
+    margin-left: 2px;
+    margin-top: 10px;
+}
+
+.ccButton{
+    padding: 10px;
+    border-radius: 10px;
+    margin-left: 15px;
+    background-color: #1B263B;
+    color: #E0E1DD;
+    border: 2px solid #415A77;
+    display: inline-block;
+}
+
+.commentThread {
+    margin-top: 2%;
+}
+
+
     </style>
   
     <title>Discussion Board Prototype UI</title>
@@ -255,8 +304,8 @@ h1{
         //Creates a new Thread element onto the page
         for(let i = 0; i < threads.length; ++i)
         {
-            $("#Threads").append(`<div id=${threads[i].Id} class="threads col-md-8"></div>`);
-            $(`#${threads[i].Id}`).append(`<h6>${threads[i].Author}<h6>`);
+            $("#Threads").append(`<div id=${threads[i].Id} class="threads commentThread col-md-8"></div>`);
+            $(`#${threads[i].Id}`).append(`<h6>Post by: ${threads[i].Author}<h6>`);
             $(`#${threads[i].Id}`).append('<hr>');
             $(`#${threads[i].Id}`).append(`<h6 class="threadTitle">${threads[i].Title}</h6>`);
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↑</button>');
@@ -264,7 +313,14 @@ h1{
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>');
             $(`#${threads[i].Id}`).append('<button type="button" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>');
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
+
+            $(`#${threads[i].Id}`).click(function(){
+              //alert("worked");
+              socket.emit('GetNestedThread', {Id: threads[i].Id});
+            });
         }
+
+
       });
 
       socket.on('GetNestedDiscussionBoard', function(msg) {
@@ -273,8 +329,33 @@ h1{
       })
 
       socket.on('GetNestedThread', function(msg) {
+        $("#Threads div").remove();
         let thread = msg;
-        console.log(thread);
+        let replies = thread.Replies;
+        //console.log(thread);
+        $("#Threads").append(`<div id=${thread.Id} class="col-md-8 Posts"></div>`);
+        $(`#${thread.Id}`).append(`<h5>${thread.Title}</h5>`);
+        $(`#${thread.Id}`).append(`<p>${thread.Body}</p>`);
+        $(`#${thread.Id}`).append(`<p class="Author">Post By: ${thread.Author}</p>`);
+        $(`#${thread.Id}`).append(`<p class="btn netvote"> 0 </p>`);
+        $(`#${thread.Id}`).append('<button type="button" class="threadOpt">↑</button>');
+        $(`#${thread.Id}`).append('<button type="button" class="threadOpt">↓</button>');
+        $(`#${thread.Id}`).append('<button type="button" class="threadOpt">…</button>');
+        $(`#${thread.Id}`).append('<button class="btn ccButton" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>');
+        
+        //console.log(replies.length);
+        
+        for(let i = 0; i < replies.length; i++){
+          $("#Threads").append(`<div id=${replies[i].Id} class="col-md-7 Posts"></div>`);
+          $(`#${replies[i].Id}`).append(`<p>${replies[i].Body}</p>`);
+          $(`#${replies[i].Id}`).append(`<p class="Author">Post By: ${replies[i].Author}</p>`);
+          $(`#${replies[i].Id}`).append(`<p class="btn netvote"> 0 </p>`);
+          $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">↑</button>');
+          $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">↓</button>');
+          $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
+          $(`#${replies[i].Id}`).append('<button class="btn ccButton" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>');
+        }
+
       })
 
       socket.on('CreateThread', function(msg) {
