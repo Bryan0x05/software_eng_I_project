@@ -43,9 +43,10 @@ class Thread {
 }
 
 class Comment {
-    constructor(Author, Body) {
+    constructor(Author, Body, ParentId) {
         this.Author = Author;
         this.Body = Body;
+        this.ParentId = ParentId;
         this.TimeStamp = Date.now();
         this.Id = "" + this.Author + "_" + this.TimeStamp;
         this.Upvoters = [];
@@ -71,7 +72,7 @@ function CreateThread(DiscussionBoard, Author, Title, Body, Tag) {
 // and add it to the json database.
 function CreateReply(DiscussionBoard, ParentId, Author, Body, ParentAuthor) {
     DiscussionBoard.refresh();
-    let newReply = new Comment(Author, "@" + ParentAuthor + " " + Body);
+    let newReply = new Comment(Author, "@" + ParentAuthor + " " + Body, ParentId);
     // add new comment to discussion board
     DiscussionBoard.PostList[newReply.Id] = newReply;
     // add id to replies list of parent
@@ -160,24 +161,21 @@ function DeletePost(DiscussionBoard, User, PostId) {
 
     DiscussionBoard.refresh();
 
-    // delete all children of this post
-    for(let j = 0; j < DiscussionBoard.PostList[PostId].Replies.length; j++)
-    {
-        DeletePost(DiscussionBoard, "admin", DiscussionBoard.PostList[PostId].Replies[j]);
+    // if its a thread
+    if('Title' in DiscussionBoard.PostList[PostId]) {
+        for(let j = 0; j < DiscussionBoard.PostList[PostId].Replies.length; j++) {
+            delete DiscussionBoard.PostList[DiscussionBoard.PostList[PostId].Replies[j]];
+        }
+        delete DiscussionBoard.PostList[PostId];
+    }
+    else {
+        // if its a comment
+        let arr = DiscussionBoard.PostList[DiscussionBoard.PostList[PostId].ParentId].Replies;
+        arr = arr.filter(e => e !== PostId);
+        DiscussionBoard.PostList[DiscussionBoard.PostList[PostId].ParentId].Replies = arr;
+        delete DiscussionBoard.PostList[PostId];
     }
     
-    // remove all references of this post in other posts reply lists.
-    let keys = Object.keys(DiscussionBoard.PostList);
-    for(let i = 0; i < keys.length; i++)
-    {
-        if(DiscussionBoard.PostList[keys[i]].Replies.includes(PostId))
-        {
-            // remove from replies array
-            DiscussionBoard.PostList[keys[i]].Replies.splice(DiscussionBoard.PostList[keys[i]].Replies.indexOf(PostId), 1);
-        }
-    }
-
-    delete DiscussionBoard.PostList[PostId];
     DiscussionBoard.PushToJSON();
 }
 
