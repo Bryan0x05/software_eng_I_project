@@ -312,7 +312,7 @@ h5 {
             $(`#${threads[i].Id}`).append(`<h6 id="${threads[i].Id}Title" class="threadTitle">${threads[i].Title}</h6>`);
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↑</button>');
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↓</button>');
-            $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>');
+            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
 
@@ -322,7 +322,7 @@ h5 {
             });
             
             $(`#${threads[i].Id}Delete`).click(function(){
-              socket.emit('DeletePost', {User: "admin", PostId: threads[i].Id});
+              socket.emit('DeletePost', {User: "admin", PostId: threads[i].Id}); //Change when bryan makes sign in STAR_
             });
 
         }
@@ -390,7 +390,7 @@ h5 {
         let title = $('#NewThreadTitle').val();
         let body = $('#NewThreadBody').val();
         //console.log(title, body);
-        socket.emit('CreateThread', {Author: "Tester", Title: title, Body: body, Tag: ""});
+        socket.emit('CreateThread', {Author: "Tester", Title: title, Body: body, Tag: ""}); //Change when bryan makes sign in STAR_
       });
 
 
