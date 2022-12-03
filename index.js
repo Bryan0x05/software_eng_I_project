@@ -186,7 +186,7 @@ function GetNestedThread(DiscussionBoard, PostId) {
     let parent = DiscussionBoard.PostList[PostId];
     for(let i = 0; i < parent.Replies.length; ++i)
     {
-        parent.Replies[i] = GetNestedThread(db, parent.Replies[i]);
+        parent.Replies[i] = DiscussionBoard.PostList[parent.Replies[i]];
     }
     return parent;
 }
