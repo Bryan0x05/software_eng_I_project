@@ -52,7 +52,6 @@ class Comment {
         this.Downvoters = [];
         this.Edited = false;
         this.Endorsed = false;
-        this.Replies = [];
     }
 }
 
@@ -70,9 +69,9 @@ function CreateThread(DiscussionBoard, Author, Title, Body, Tag) {
 
 // Create a new reply to a comment or thread
 // and add it to the json database.
-function CreateReply(DiscussionBoard, ParentId, Author, Body) {
+function CreateReply(DiscussionBoard, ParentId, Author, Body, ParentAuthor) {
     DiscussionBoard.refresh();
-    let newReply = new Comment(Author, Body);
+    let newReply = new Comment(Author, "@" + ParentAuthor + " " + Body);
     // add new comment to discussion board
     DiscussionBoard.PostList[newReply.Id] = newReply;
     // add id to replies list of parent
@@ -266,9 +265,9 @@ io.on('connection', (socket) => {
         io.emit('CreateThread', CreateThread(db, msg.Author, msg.Title, msg.Body, msg.Tag));
     })
 
-    // expects {ParentId: string, Author: string, Body: string}
+    // expects {ParentId: string, Author: string, Body: string, ParentAuthor: string}
     socket.on('CreateReply', (msg) => {
-        io.emit('CreateReply', CreateReply(db, msg.ParentId, msg.Author, msg.Body));
+        io.emit('CreateReply', CreateReply(db, msg.ParentId, msg.Author, msg.Body, msg.ParentAuthor));
     })
 
     // expects {Id: string}
@@ -279,18 +278,21 @@ io.on('connection', (socket) => {
     // expects {User: string, IsUpvote: boolean, PostId: string}
     socket.on('Vote', (msg) => {
         Vote(db, msg.User, msg.IsUpvote, msg.PostId);
+        io.emit('Vote', true);
     })
 
     // expects {PostId: string, newBody: string, newTitle: string}
     //  **if it is a comment and not a thread set newTitle = null**
     socket.on('EditPost', (msg) => {
         EditPost(db, msg.PostId, msg.newBody, msg.NewTitle);
+        io.emit('EditPost', true);
     })
 
     // expects {User: string, PostId: string}
     // sending user as "admin" will allow deletion of anything-
     socket.on('DeletePost', (msg) => {
         DeletePost(db, msg.User, msg.PostId);
+        io.emit(('DeletePost'), true);
     })
 
   });

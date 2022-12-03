@@ -1,1 +1,40 @@
-{"alex_1669611033378":{"Author":"alex","Title":"My Thread","Body":"This is my new thread! It has great content.","Tag":"Misc","TimeStamp":1669611033378,"Id":"alex_1669611033378","Upvoters":["test_user"],"Downvoters":[],"Edited":false,"Endorsed":false,"Replies":["aidan_1669675692923"]},"aidan_1669675692923":{"Author":"aidan","Body":"sick post dude.","TimeStamp":1669675692923,"Id":"aidan_1669675692923","Upvoters":[],"Downvoters":[],"Edited":false,"Endorsed":false,"Replies":["Bryan_1669675692924"]},"Bryan_1669675692924":{"Author":"Bryan","Body":"I agree aidan","TimeStamp":1669675692924,"Id":"Bryan_1669675692924","Upvoters":[],"Downvoters":[],"Edited":false,"Endorsed":false,"Replies":["Tyler_1669675692920"]},"Tyler_1669675692920":{"Author":"Tyler","Body":"I agree bryan","TimeStamp":1669675692920,"Id":"Tyler_1669675692920","Upvoters":[],"Downvoters":[],"Edited":false,"Endorsed":false,"Replies":[]}}
+{
+  "alex_1669611033378": {
+    "Author": "alex",
+    "Title": "Welcome!",
+    "Body": "Welcome to the discussion board. This is my new thread!",
+    "Tag": "Misc",
+    "TimeStamp": 1669611033378,
+    "Id": "alex_1669611033378",
+    "Upvoters": [
+      "test_user"
+    ],
+    "Downvoters": [],
+    "Edited": false,
+    "Endorsed": false,
+    "Replies": [
+      "aidan_1670101466346",
+      "Bryan_1670101563398"
+    ]
+  },
+  "aidan_1670101466346": {
+    "Author": "aidan",
+    "Body": "@alex Wow, I can reply to you!",
+    "TimeStamp": 1670101466346,
+    "Id": "aidan_1670101466346",
+    "Upvoters": [],
+    "Downvoters": [],
+    "Edited": false,
+    "Endorsed": false
+  },
+  "Bryan_1670101563398": {
+    "Author": "Bryan",
+    "Body": "@aidan And I to you, aidan...",
+    "TimeStamp": 1670101563398,
+    "Id": "Bryan_1670101563398",
+    "Upvoters": [],
+    "Downvoters": [],
+    "Edited": false,
+    "Endorsed": false
+  }
+}

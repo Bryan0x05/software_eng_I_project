@@ -385,6 +385,14 @@ h5 {
         console.log("removed post");
       });
 
+      socket.on('Vote', function(msg) {
+        // msg == true
+      });
+
+      socket.on('EditPost', function(msg) {
+        // msg == true
+      });
+
       //Whenever the post button is pressed to post a new Thread
       $('#PostNewThread').click(function(){
         let title = $('#NewThreadTitle').val();
