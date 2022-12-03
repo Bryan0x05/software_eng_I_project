@@ -187,9 +187,9 @@ h5 {
           </div>
           <!--Modal body is here-->
           <div class="modal-body">
-            <textarea class = "create-thread-title" placeholder = "Enter thread title"></textarea>
+            <textarea id="NewThreadTitle" class = "create-thread-title" placeholder = "Enter thread title"></textarea>
             <br>
-            <textarea class = "create-thread-body" placeholder="Enter thread body"></textarea>
+            <textarea id="NewThreadBody" class = "create-thread-body" placeholder="Enter thread body"></textarea>
             <br>
             <select list="tags" required>
               <option value="">Select tag</option>
@@ -198,7 +198,7 @@ h5 {
             </select>  
           </div>
           <div class="modal-footer">
-            <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Post</button>
+            <button type="button" id="PostNewThread" data-bs-dismiss="modal" class="btn btn-primary">Post</button>
           </div>
         </div>
       </div>
@@ -282,10 +282,12 @@ h5 {
     <script>
       var socket = io();
 
+      socket.emit('GetAllThreads');
+
       function TestFunction() {
 
         //socket.emit('CreateThread', {Author: "Bryan", Title: "This is a cool site", Body: "Team 5 rules", Tag: "Bragging"})
-        socket.emit('GetAllThreads');
+        
 
         //socket.emit('GetNestedDiscussionBoard');
         //socket.emit('GetNestedThread', {Id: "alex_1669611033378"});
@@ -307,17 +309,22 @@ h5 {
             $("#Threads").append(`<div id=${threads[i].Id} class="threads commentThread col-md-8"></div>`);
             $(`#${threads[i].Id}`).append(`<h6>Post by: ${threads[i].Author}<h6>`);
             $(`#${threads[i].Id}`).append('<hr>');
-            $(`#${threads[i].Id}`).append(`<h6 class="threadTitle">${threads[i].Title}</h6>`);
+            $(`#${threads[i].Id}`).append(`<h6 id="${threads[i].Id}Title" class="threadTitle">${threads[i].Title}</h6>`);
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↑</button>');
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↓</button>');
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>');
-            $(`#${threads[i].Id}`).append('<button type="button" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>');
+            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
 
-            $(`#${threads[i].Id}`).click(function(){
+            $(`#${threads[i].Id}Title`).click(function(){
               //alert("worked");
               socket.emit('GetNestedThread', {Id: threads[i].Id});
             });
+            
+            $(`#${threads[i].Id}Delete`).click(function(){
+              socket.emit('DeletePost', {User: "admin", PostId: threads[i].Id});
+            });
+
         }
 
 
@@ -326,9 +333,10 @@ h5 {
       socket.on('GetNestedDiscussionBoard', function(msg) {
         let db = msg;
         console.log(db);
-      })
+      });
 
       socket.on('GetNestedThread', function(msg) {
+        //clears screen to open a thread
         $("#Threads div").remove();
         let thread = msg;
         let replies = thread.Replies;
@@ -356,17 +364,33 @@ h5 {
           $(`#${replies[i].Id}`).append('<button class="btn ccButton" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>');
         }
 
-      })
+      });
 
       socket.on('CreateThread', function(msg) {
         let newThreadId = msg;
         console.log(msg);
-      })
+        $("#Threads div").remove();
+        socket.emit('GetAllThreads');
+      });
 
       socket.on('ToggleEndorseStatus', function(msg) {
         let newEndorsementStatus = msg;
         console.log(newEndorsementStatus);
-      })
+      });
+
+      socket.on('DeletePost', function(msg) {
+        $("#Threads div").remove();
+        socket.emit('GetAllThreads');
+        console.log("removed post");
+      });
+
+      $('#PostNewThread').click(function(){
+        let title = $('#NewThreadTitle').val();
+        let body = $('#NewThreadBody').val();
+        //console.log(title, body);
+        socket.emit('CreateThread', {Author: "Tester", Title: title, Body: body, Tag: ""});
+      });
+
 
     </script>
   </body>
