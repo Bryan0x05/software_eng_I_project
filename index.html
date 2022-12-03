@@ -216,7 +216,7 @@ h5 {
             </div>
         </div>
         <div id="Threads" class="row justify-content-center">
-          <div class="threads col-md-8">
+         <!-- <div class="threads col-md-8">
               <h6>Example Author</h6>
               <hr>
               <a href="Thread.html"><h6 class="threadTitle">Example Title</h6></a>
@@ -227,7 +227,7 @@ h5 {
               <button type="button" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>
               <button type="button" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>
               <button type="button" class="threadOpt">…</button>
-          </div>
+          </div>-->
         </div>
     </div>
     <!--Edit/delete  Modal -->
@@ -297,7 +297,7 @@ h5 {
       socket.on('GetAllThreads', function(msg) {
         //clears current threads
         $("#Threads div").remove();
-
+        $("#ctButton").show();
         //sets the response to the handle to a more readable variable
         let threads = msg;
 
@@ -338,6 +338,7 @@ h5 {
       socket.on('GetNestedThread', function(msg) {
         //clears screen to open a thread
         $("#Threads div").remove();
+        $("#ctButton").hide();
         let thread = msg;
         let replies = thread.Replies;
         //console.log(thread);
