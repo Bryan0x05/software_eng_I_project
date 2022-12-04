@@ -188,6 +188,9 @@
 #topbar{
     font-family: "Open Sans",sans-serif;
 }
+#LoginPageModal{
+    display: none;
+}
     </style>
   
     <title>Discussion Board Prototype UI</title>
@@ -209,9 +212,9 @@
         <p> COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
     </div>
     <!--Topbar-->
-    <!--Meta buttons-->>
-    <a id = "logoutbutton" class = "btn btn-secondary float-end">Logout</a>
-    <a id="return" class="btn btn-secondary float-end">Return</a>
+    <!--Meta buttons-->
+    <button id = "logoutbutton" class = "btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#LoginPageModal">Logout</button>
+    <button id="return" class="btn btn-secondary float-end">Return</button>
     <!--Thread Creation Modal -->
     <div class="modal fade" id="CreateThreadModal" tabindex="-1" aria-labelledby="CreateThreadModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog">
@@ -336,6 +339,32 @@
         </div>
       </div>
     </div>
+    <!--Login modal-->
+    <div class="modal fade" id="LoginPageModal" tabindex="-1" aria-labelledby="Loginpagemodal" aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <!--This is where the modal content background and text color are set-->
+            <div class="modal-content text-white">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="LoginPagemodal">Login modal</h2>
+                    <!--Button back is set to white here to make it stand out on black background-->
+                </div>
+                <!--Modal body is here-->
+                <div class="modal-body">
+                    <input type="text" id="LoginUsername" placeholder="Username"></input>
+                    <br>
+                </div>
+                <div class="modal-footer">
+                    <p>Are you a </p>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary" id = "StudentButton">Student</button>
+                    <p>or</p>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary" id = "InstructorButton">Instructor</button>
+                    <p>?</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--login modal-->>
+</div>
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
@@ -347,15 +376,22 @@
       var socket = io();
      
       socket.emit('GetAllThreads');
-     //using for testing
-        $("#logoutbutton").click(function () {
-            console.log("login request sent");
-            socket.emit('LoginRequest');
+     //logout button listener, being used for testing atm
+        $("#StudentButton").click(function () {
+            console.log("Student button pressed");
+            username = $("input[id=LoginUsername]").val();
+            socket.emit("SetUser","Student",username);
+        });
+        $("#InstructorButton").click(function () {
+            console.log("Instructor button pressed");
+            username = $("input[id=LoginUsername]").val();
+            socket.emit("SetUser", "Admin",username);
         });
      //return button listener
       $("#return").click(function() {
         socket.emit('GetAllThreads');
       });
+
       function TestFunction() {
 
         //socket.emit('CreateThread', {Author: "Bryan", Title: "This is a cool site", Body: "Team 5 rules", Tag: "Bragging"})
@@ -373,7 +409,7 @@
         let threads = msg;
 
         console.log(threads)
-
+        
         //Creates a new Thread element onto the page
         for(let i = 0; i < threads.length; ++i)
         {
@@ -491,10 +527,6 @@
         $("#Threads div").remove();
         socket.emit('GetAllThreads');
       });
-      //log in page
-      socket.on("LoginPage", function () {
-            console.log("login request recieved");
-        });
 
       socket.on('CreateReply', function(msg) {
         let comment = msg;

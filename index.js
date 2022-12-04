@@ -5,7 +5,11 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 const fs = require('fs');
-
+//global var to get track of user information
+let UserInformation = {
+    Name: "placeholdername",
+    Prem: "student"
+};
 
 function LoadThreadsFromJSON() {
     return JSON.parse(fs.readFileSync("./DiscussionBoard.json", 'utf8'));
@@ -204,7 +208,12 @@ function SortByTime(DiscussionBoard)  {
     });
     return sorted;
 }; 
-
+//sets the global user info variable
+function SetUserPremissions(prem,username){
+    UserInformation.Prem = prem;
+    UserInformation.Name = username;
+    //to-do store username
+}
 
 // returns a list of all threads
 // If you want a particular thread and it's nested comments,
@@ -242,10 +251,11 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-    
-    socket.on('LoginRequest', () => {
-        console.log("login request sever side log")
-        io.emit('LoginPage');
+    //for testing purposes of login modal atm
+    socket.on('SetUser', (userprem,username) => {
+        console.log("Set user caught!");
+        SetUserPremissions(userprem,username);
+        console.log("Username is " + username);
     });
     // expects nothing, returns a list of all threads (not nested)
     socket.on('GetAllThreads', () => {
