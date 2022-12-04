@@ -386,8 +386,18 @@ h5 {
         $(`#${thread.Id}`).append('<button type="button" class="threadOpt">↑</button>');
         $(`#${thread.Id}`).append('<button type="button" class="threadOpt">↓</button>');
         $(`#${thread.Id}`).append('<button type="button" class="threadOpt">…</button>');
-        $(`#${thread.Id}`).append('<button class="btn ccButton" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>');
+        $(`#${thread.Id}`).append(`<button class="btn ccButton" id="${thread.Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
         
+        $(`#${thread.Id}Reply`).click(function(){
+            alert("callT");
+              $('#PostNewComment').click(function(){
+                let body = $('#NewCommentBody').val();
+                //console.log(title, body);
+                socket.emit('CreateReply', {ParentId: thread.Id, Author: `TesterA`, Body: body, ParentAuthor: thread.Author}); //change STAR_
+              });
+        });
+
+
         //console.log(replies.length);
         
         for(let i = 0; i < replies.length; i++){
@@ -401,11 +411,11 @@ h5 {
           $(`#${replies[i].Id}`).append(`<button class="btn ccButton" id="${replies[i].Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
         
           $(`#${replies[i].Id}Reply`).click(function(){
-              alert("worked");
+              alert("call");
               $('#PostNewComment').click(function(){
                 let body = $('#NewCommentBody').val();
                 //console.log(title, body);
-                socket.emit('CreateReply', {ParentId: replies[i].Id, Author: `Tester${i}`, Body: body, ParentAuthor: replies[i].Author}); //change STAR_
+                socket.emit('CreateReply', {ParentId: thread.Id, Author: `Tester${i}`, Body: body, ParentAuthor: replies[i].Author}); //change STAR_
               });
           });
         
@@ -439,6 +449,12 @@ h5 {
         // msg == true
         $("#Threads div").remove();
         socket.emit('GetAllThreads');
+      });
+
+      socket.on('CreateReply', function(msg) {
+        let comment = msg;
+        $("#Threads div").remove();
+        socket.emit('GetNestedThread', {Id: comment.ParentId});
       });
 
       //Whenever the post button is pressed to post a new Thread

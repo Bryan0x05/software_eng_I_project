@@ -76,11 +76,11 @@ function CreateReply(DiscussionBoard, ParentId, Author, Body, ParentAuthor) {
     // add new comment to discussion board
     DiscussionBoard.PostList[newReply.Id] = newReply;
     // add id to replies list of parent
-    DiscussionBoard.PostList[ParentId].Replies.push(newReply.Id)
+    DiscussionBoard.PostList[ParentId].Replies.push(newReply.Id);
     // push to json
     DiscussionBoard.PushToJSON();
 
-    return newReply.Id;
+    return newReply;
 }
 
 // Toggle the endorsement status of a post
