@@ -208,12 +208,11 @@ h5 {
         <h1>Discussion Board Prototype UI</h1> <br>
     
         <div class="row justify-content-end">
-           <!-- <div class="col-md-4">
-              
+           <div class="col-md-4">
                 <button class = "btn" type="button" id="backButton">
                   Back
                 </button>
-            </div>  -->
+            </div>
             <div class="col-md-4">
               <!--Thread modal button-->
                 <button class = "btn" type="button" id="ctButton" data-bs-toggle="modal" data-bs-target="#CreateThreadModal">
@@ -293,7 +292,7 @@ h5 {
           <div class="modal-body">
             <textarea class ="thread-body" id="NewCommentBody" placeholder="Enter Comment Text"></textarea>
           </div>
-          <div class="modal-footer">
+          <div class="modal-footer" id="modalFooterArea">
             <button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>
           </div>
         </div>
@@ -324,6 +323,7 @@ h5 {
         //clears current threads
         $("#Threads div").remove();
         $("#ctButton").show();
+        $('#backButton').hide();
         //sets the response to the handle to a more readable variable
         let threads = msg;
 
@@ -359,12 +359,11 @@ h5 {
                 socket.emit('EditPost', {PostId: threads[i].Id, newBody: body, NewTitle: title});
               });
             });
-            
-
         }
-
-
       });
+
+
+
 
       socket.on('GetNestedDiscussionBoard', function(msg) {
         let db = msg;
@@ -375,6 +374,8 @@ h5 {
         //clears screen to open a thread
         $("#Threads div").remove();
         $("#ctButton").hide();
+        $('#backButton').show();
+
         let thread = msg;
         let replies = thread.Replies;
         //console.log(thread);
@@ -389,14 +390,13 @@ h5 {
         $(`#${thread.Id}`).append(`<button class="btn ccButton" id="${thread.Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
         
         $(`#${thread.Id}Reply`).click(function(){
-            alert("callT");
               $('#PostNewComment').click(function(){
                 let body = $('#NewCommentBody').val();
                 //console.log(title, body);
                 socket.emit('CreateReply', {ParentId: thread.Id, Author: `TesterA`, Body: body, ParentAuthor: thread.Author}); //change STAR_
               });
         });
-
+        
 
         //console.log(replies.length);
         
@@ -411,11 +411,11 @@ h5 {
           $(`#${replies[i].Id}`).append(`<button class="btn ccButton" id="${replies[i].Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
         
           $(`#${replies[i].Id}Reply`).click(function(){
-              alert("call");
               $('#PostNewComment').click(function(){
                 let body = $('#NewCommentBody').val();
                 //console.log(title, body);
                 socket.emit('CreateReply', {ParentId: thread.Id, Author: `Tester${i}`, Body: body, ParentAuthor: replies[i].Author}); //change STAR_
+                $('#PostNewComment').click(null);
               });
           });
         
@@ -453,8 +453,10 @@ h5 {
 
       socket.on('CreateReply', function(msg) {
         let comment = msg;
-        $("#Threads div").remove();
-        socket.emit('GetNestedThread', {Id: comment.ParentId});
+          $('#modalFooterArea button').remove();
+          $("#Threads div").remove();
+          $('#modalFooterArea').append(`<button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>`);
+          socket.emit('GetNestedThread', {Id: comment.ParentId});
       });
 
       //Whenever the post button is pressed to post a new Thread
@@ -463,6 +465,11 @@ h5 {
         let body = $('#NewThreadBody').val();
         //console.log(title, body);
         socket.emit('CreateThread', {Author: "Tester", Title: title, Body: body, Tag: ""}); //Change when bryan makes sign in STAR_
+      });
+
+      $('#backButton').click(function(){
+        $("#Threads div").remove();
+        socket.emit('GetAllThreads');
       });
 
     </script>
