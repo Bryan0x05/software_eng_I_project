@@ -283,6 +283,7 @@ h5 {
       var socket = io();
 
       socket.emit('GetAllThreads');
+      socket.emit('GetSortedDiscussionBoard', {Type: 'Rating'});
 
       function TestFunction() {
 
@@ -301,7 +302,7 @@ h5 {
         //sets the response to the handle to a more readable variable
         let threads = msg;
 
-        console.log(threads)
+        console.log(threads);
 
         //Creates a new Thread element onto the page
         for(let i = 0; i < threads.length; ++i)
@@ -329,6 +330,10 @@ h5 {
 
 
       });
+
+      socket.on('GetSortedDiscussionBoard', function(msg) {
+        console.log(msg);
+      })
 
       socket.on('GetNestedDiscussionBoard', function(msg) {
         let db = msg;
