@@ -189,19 +189,55 @@ function GetNestedThread(DiscussionBoard, PostId) {
     return parent;
 }
 
-function SortByTime(DiscussionBoard)  {
+function GetSortedDiscussionBoard(DiscussionBoard, type) {
     DiscussionBoard.refresh();
     let tempArr = [];
-    for(var post in DiscussionBoard.PostList) {
+    for (var post in DiscussionBoard.PostList) {
         tempArr.push([post, DiscussionBoard.PostList[post]]);
     }
 
-    tempArr.sort(function(a, b){return a[1].TimeStamp - b[1].TimeStamp});
+    // Sorts discussion board posts based on type of sort
+    tempArr.sort(function (a, b) {
+        // Endorsed posts go first
+        if (a.Endorsed && !b.Endorsed) return -1;
+        else if (b.Endorsed && !a.Endorsed) return 1;
+
+        // If neither or both posts are endorsed, sort based on type
+        if (type === 'TimeStamp') {
+            return a[1][type] - b[1][type];
+        }
+        else if (type === 'Rating') {
+            return (b[1].Upvoters.length - b[1].Downvoters.length) - (a[1].Upvoters.length - a[1].Downvoters.length);
+        }
+
+    });
 
     let sorted = {}
-    tempArr.forEach(function(elem){
+    tempArr.forEach(function (elem) {
         sorted[elem[0]] = elem[1];
     });
+
+    // Sorts Reply lists of threads based on type of sort
+    for (var el in sorted) {
+        if ('Title' in sorted[el]) {
+            sorted[el].Replies.sort(function (a, b) {
+                // Endorsed posts go first
+                if (sorted[a].Endorsed && !sorted[b].Endorsed) return -1;
+                else if (sorted[b].Endorsed && !sorted[a].Endorsed) return 1;
+
+                // If neither or both posts are endorsed, sort based on type
+                if (type === 'TimeStamp') {
+                    return sorted[a][type] - sorted[b][type];
+                }
+                else if (type === 'Rating') {
+                    // Rating of a - Rating of b
+                    return (sorted[b].Upvoters.length - sorted[b].Downvoters.length) - (sorted[a].Upvoters.length - sorted[a].Downvoters.length);
+                }
+
+            });
+        }
+    };
+
     return sorted;
 }; 
 
@@ -257,6 +293,11 @@ io.on('connection', (socket) => {
     socket.on('GetNestedThread', (msg) => {
         io.emit('GetNestedThread', GetNestedThread(db, msg.Id));
     })
+
+    // expects {Type: string}
+    socket.on('GetSortedDiscussionBoard', (msg) => {
+        io.emit('GetSortedDiscussionBoard', GetSortedDiscussionBoard(db, msg.Type));
+    });
 
     // expects {Author: string, Title: string, Body: string, Tag: string}
     socket.on('CreateThread', (msg) => {

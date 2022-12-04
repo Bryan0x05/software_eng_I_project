@@ -423,6 +423,10 @@ h5 {
 
       });
 
+      socket.on('GetSortedDiscussionBoard', function(msg) {
+        console.log(msg);
+      })
+
       socket.on('CreateThread', function(msg) {
         let newThreadId = msg;
         console.log(msg);
