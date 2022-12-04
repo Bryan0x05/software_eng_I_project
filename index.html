@@ -210,7 +210,8 @@
     </div>
     <!--Topbar-->
     <!--Meta buttons-->>
-    <a id = "logoutbutton" class = "btn btn-secondary float-end" href="startpage.html">Logout</a>
+    <a id = "logoutbutton" class = "btn btn-secondary float-end">Logout</a>
+    <a id="return" class="btn btn-secondary float-end">Return</a>
     <!--Thread Creation Modal -->
     <div class="modal fade" id="CreateThreadModal" tabindex="-1" aria-labelledby="CreateThreadModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog">
@@ -347,9 +348,12 @@
      
       socket.emit('GetAllThreads');
      //using for testing
-
+        $("#logoutbutton").click(function () {
+            console.log("login request sent");
+            socket.emit('LoginRequest');
+        });
      //return button listener
-      $("#Return").click(function() {
+      $("#return").click(function() {
         socket.emit('GetAllThreads');
       });
       function TestFunction() {
@@ -400,11 +404,7 @@
                 socket.emit('EditPost', {PostId: threads[i].Id, newBody: body, NewTitle: title});
               });
             });
-            
-
         }
-
-
       });
 
       socket.on('GetNestedDiscussionBoard', function(msg) {
