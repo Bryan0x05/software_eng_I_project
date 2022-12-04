@@ -242,7 +242,11 @@ app.get('/', (req, res) => {
 });
 
 io.on('connection', (socket) => {
-
+    
+    socket.on('LoginRequest', () => {
+        console.log("login request sever side log")
+        io.emit('LoginPage');
+    });
     // expects nothing, returns a list of all threads (not nested)
     socket.on('GetAllThreads', () => {
         io.emit('GetAllThreads', GetAllThreads(db));
