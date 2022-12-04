@@ -12,12 +12,8 @@
     background-color: #0D1B2A;
     }
 
-<<<<<<< Updated upstream
 
 .container {
-=======
-    .container {
->>>>>>> Stashed changes
     background-color: #0D1B2A;
     min-height: 700px;
     }
@@ -173,11 +169,7 @@
     margin-top: 2%;
     }
 
-<<<<<<< Updated upstream
 #sidebar{
-=======
-    #sidebar{
->>>>>>> Stashed changes
     position: fixed;
     font-family: "Open Sans",sans-serif;
     background-color: #333333;
@@ -188,7 +180,6 @@
     width: 10%;
     height: 100vh;
     z-index: -1;
-<<<<<<< Updated upstream
 }
 .sidebar-dividers{
     padding: 1px;
@@ -198,46 +189,10 @@
     font-family: "Open Sans",sans-serif;
 }
     </style>
-=======
-    }
-    .sidebar-dividers{
-    padding: 1px;
-
-    }
-    #topbar{
-    font-family: "Open Sans",sans-serif;
-    }
-
-</style>
-    
-    <title>Discussion Board Prototype UI</title>
-    </head>
-    
-    <body>
-        <!--Sidebar-->
-        <div id="sidebar">
-            <p class="fw-bold">COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
-            <p>
-                Home page
-                <hr class="sidebar-dividers">
-                Announcements<br><br>
-                Discusson Board
-                <hr class="sidebar-dividers">
-                Gradebook
-            </p>
-        </div>
-        <!-- Sidebar -->
-        <!--Topbar-->
-        <div class="bg-white fw-bold" id="topbar">
-            <p> COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
-        </div>
-        <!--Topbar-->
->>>>>>> Stashed changes
   
     <title>Discussion Board Prototype UI</title>
   </head>
   <body>
-<<<<<<< Updated upstream
     <!--Sidebar-->
     <div id = "sidebar">
         <p class = "fw-bold">COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
@@ -256,12 +211,6 @@
     <!--Topbar-->
     <!--Meta buttons-->>
     <a id = "logoutbutton" class = "btn btn-secondary float-end" href="startpage.html">Logout</a>
-=======
-    <!--Meta Buttons-->
-    <a id = "logoutbutton" class = "btn btn-secondary float-end" >Logout</a>
-    <a id="Return" class="btn btn-secondary float-end">Return</a>
-
->>>>>>> Stashed changes
     <!--Thread Creation Modal -->
     <div class="modal fade" id="CreateThreadModal" tabindex="-1" aria-labelledby="CreateThreadModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog">
@@ -453,14 +402,11 @@
             });
             
 
-<<<<<<< Updated upstream
         }
 
 
       });
 
-=======
->>>>>>> Stashed changes
       socket.on('GetNestedDiscussionBoard', function(msg) {
         let db = msg;
         console.log(db);
@@ -564,18 +510,6 @@
         socket.emit('CreateThread', {Author: "Tester", Title: title, Body: body, Tag: ""}); //Change when bryan makes sign in STAR_
       });
 
-<<<<<<< Updated upstream
-
-=======
-      $('#backButton').click(function(){
-        $("#Threads div").remove();
-        socket.emit('GetAllThreads');
-      });
-        $("#logoutbutton").click(function () {
-            console.log("login request sent");
-            socket.emit('LoginRequest');
-        });
->>>>>>> Stashed changes
     </script>
   </body>
 </html>
