@@ -208,6 +208,12 @@ h5 {
         <h1>Discussion Board Prototype UI</h1> <br>
     
         <div class="row justify-content-end">
+           <!-- <div class="col-md-4">
+              
+                <button class = "btn" type="button" id="backButton">
+                  Back
+                </button>
+            </div>  -->
             <div class="col-md-4">
               <!--Thread modal button-->
                 <button class = "btn" type="button" id="ctButton" data-bs-toggle="modal" data-bs-target="#CreateThreadModal">
@@ -243,12 +249,12 @@ h5 {
           </div>
           <!--Modal body is here-->
           <div class="modal-body">
-            <textarea class="thread-title" placeholder="Edit thread title"></textarea>
+            <textarea class="thread-title" id="EditThreadTitle" placeholder="Edit thread title"></textarea>
             <br>
-            <textarea class="thread-body" placeholder="Edit thread body"></textarea>
+            <textarea class="thread-body" id="EditThreadBody" placeholder="Edit thread body"></textarea>
           </div>
           <div class="modal-footer">
-            <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Save Edit</button>
+            <button type="button" id="EditThread" data-bs-dismiss="modal" class="btn btn-primary">Save Edit</button>
           </div>
         </div>
       </div>
@@ -269,6 +275,26 @@ h5 {
           </div>
           <div class="modal-footer">
             <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Okay</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--Create Comment modal-->
+    <div class="modal fade" id="CreateCommentModal" tabindex="-1" aria-labelledby="CreateCommentModalLabel" aria-hidden="true" data-bs-backdrop="static">
+      <div class="modal-dialog">
+        <!--This is where the modal content background and text color are set-->
+        <div class="modal-content text-white">
+          <div class="modal-header">
+            <h2 class="modal-title fs-5" id="CreateCommentModalLabel">New Comment</h2>
+            <!--Button back is set to white here to make it stand out on black background-->
+            <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <!--Modal body is here-->
+          <div class="modal-body">
+            <textarea class ="thread-body" id="NewCommentBody" placeholder="Enter Comment Text"></textarea>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>
           </div>
         </div>
       </div>
@@ -325,6 +351,16 @@ h5 {
               socket.emit('DeletePost', {User: "admin", PostId: threads[i].Id}); //Change when bryan makes sign in STAR_
             });
 
+            $(`#${threads[i].Id}Edit`).click(function(){
+              $('#EditThread').click(function(){
+                let title = $('#EditThreadTitle').val();
+                let body = $('#EditThreadBody').val();
+                //console.log(title, body);
+                socket.emit('EditPost', {PostId: threads[i].Id, newBody: body, NewTitle: title});
+              });
+            });
+            
+
         }
 
 
@@ -362,7 +398,17 @@ h5 {
           $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">↑</button>');
           $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">↓</button>');
           $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
-          $(`#${replies[i].Id}`).append('<button class="btn ccButton" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>');
+          $(`#${replies[i].Id}`).append(`<button class="btn ccButton" id="${replies[i].Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
+        
+          $(`#${replies[i].Id}Reply`).click(function(){
+              alert("worked");
+              $('#PostNewComment').click(function(){
+                let body = $('#NewCommentBody').val();
+                //console.log(title, body);
+                socket.emit('CreateReply', {ParentId: replies[i].Id, Author: `Tester${i}`, Body: body, ParentAuthor: replies[i].Author}); //change STAR_
+              });
+          });
+        
         }
 
       });
@@ -391,6 +437,8 @@ h5 {
 
       socket.on('EditPost', function(msg) {
         // msg == true
+        $("#Threads div").remove();
+        socket.emit('GetAllThreads');
       });
 
       //Whenever the post button is pressed to post a new Thread
@@ -400,7 +448,6 @@ h5 {
         //console.log(title, body);
         socket.emit('CreateThread', {Author: "Tester", Title: title, Body: body, Tag: ""}); //Change when bryan makes sign in STAR_
       });
-
 
     </script>
   </body>
