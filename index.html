@@ -168,7 +168,7 @@
     .commentThread {
     margin-top: 2%;
     }
-
+/*
 #sidebar{
     position: fixed;
     font-family: "Open Sans",sans-serif;
@@ -187,7 +187,7 @@
 }
 #topbar{
     font-family: "Open Sans",sans-serif;
-}
+}*/
 #LoginPageModal{
     display: none;
 }
@@ -196,7 +196,7 @@
     <title>Discussion Board Prototype UI</title>
   </head>
   <body>
-    <!--Sidebar-->
+    <!--
     <div id = "sidebar">
         <p class = "fw-bold">COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
         <p>
@@ -206,12 +206,11 @@
             Gradebook
         </p>
     </div>
-    <!-- Sidebar -->
-    <!--Topbar-->
+
     <div class = "bg-white fw-bold" id="topbar">
         <p> COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
     </div>
-    <!--Topbar-->
+   -->
     <!--Meta buttons-->
     <button id = "logoutbutton" class = "btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#LoginPageModal">Logout</button>
     <button id="return" class="btn btn-secondary float-end">Return</button>
@@ -374,19 +373,20 @@
     <!--Cilent Javascript-->
     <script>
       var socket = io();
-     
+      var UserInformation = {
+        Name: "username",
+        Permission: "student"
+      }
       socket.emit('GetAllThreads');
-     //logout button listener, being used for testing atm
-        $("#StudentButton").click(function () {
-            console.log("Student button pressed");
-            username = $("input[id=LoginUsername]").val();
-            socket.emit("SetUser","Student",username);
-        });
-        $("#InstructorButton").click(function () {
-            console.log("Instructor button pressed");
-            username = $("input[id=LoginUsername]").val();
-            socket.emit("SetUser", "Admin",username);
-        });
+     // student button listener on login modal, being used for testing atm
+    $("#StudentButton").click(function () {
+        console.log("Student button pressed");
+        username = $("input[id=LoginUsername]").val();
+    });
+    $("#InstructorButton").click(function () {
+        console.log("Instructor button pressed");
+        username = $("input[id=LoginUsername]").val();
+    });
      //return button listener
       $("#return").click(function() {
         socket.emit('GetAllThreads');
@@ -524,6 +524,7 @@
 
       socket.on('EditPost', function(msg) {
         // msg == true
+        alert(UserInformation.Name);
         $("#Threads div").remove();
         socket.emit('GetAllThreads');
       });
