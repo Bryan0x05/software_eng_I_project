@@ -12,6 +12,7 @@
     background-color: #0D1B2A;
 }
 
+
 .container {
     background-color: #0D1B2A;
     min-height: 700px;
@@ -168,12 +169,47 @@ h5 {
     margin-top: 2%;
 }
 
-
+#sidebar{
+    position: fixed;
+    font-family: "Open Sans",sans-serif;
+    background-color: #333333;
+    color: white;
+    padding-top: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 10%;
+    height: 100vh;
+    z-index: -1;
+}
+.sidebar-dividers{
+    padding: 1px;
+    
+}
+#topbar{
+    font-family: "Open Sans",sans-serif;
+}
     </style>
   
     <title>Discussion Board Prototype UI</title>
   </head>
   <body>
+    <!--Sidebar-->
+    <div id = "sidebar">
+        <p class = "fw-bold">COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
+        <p>
+            Home page<hr class = "sidebar-dividers">
+            Announcements<br><br>
+            Discusson Board<hr class = "sidebar-dividers">
+            Gradebook
+        </p>
+    </div>
+    <!-- Sidebar -->
+    <!--Topbar-->
+    <div class = "bg-white fw-bold" id="topbar">
+        <p> COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
+    </div>
+    <!--Topbar-->
+    <!--Meta buttons-->>
     <a id = "logoutbutton" class = "btn btn-secondary float-end" href="startpage.html">Logout</a>
     <!--Thread Creation Modal -->
     <div class="modal fade" id="CreateThreadModal" tabindex="-1" aria-labelledby="CreateThreadModalLabel" aria-hidden="true" data-bs-backdrop="static">
@@ -464,6 +500,7 @@ h5 {
         //console.log(title, body);
         socket.emit('CreateThread', {Author: "Tester", Title: title, Body: body, Tag: ""}); //Change when bryan makes sign in STAR_
       });
+
 
     </script>
   </body>
