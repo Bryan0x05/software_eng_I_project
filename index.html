@@ -213,7 +213,6 @@
    -->
     <!--Meta buttons-->
     <button id = "logoutbutton" class = "btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#LoginPageModal">Logout</button>
-    <button id="return" class="btn btn-secondary float-end">Return</button>
     <!--Thread Creation Modal -->
     <div class="modal fade" id="CreateThreadModal" tabindex="-1" aria-labelledby="CreateThreadModalLabel" aria-hidden="true" data-bs-backdrop="static">
       <div class="modal-dialog">
@@ -248,7 +247,7 @@
     
         <div class="row justify-content-end">
            <div class="col-md-4">
-                <button class = "btn" type="button" id="backButton">
+                <button class="btn btn-secondary float-end" type="button" id="backButton">
                   Back
                 </button>
             </div>
@@ -386,10 +385,6 @@
         console.log("Instructor button pressed");
         username = $("input[id=LoginUsername]").val();
     });
-     //return button listener
-      $("#return").click(function() {
-        socket.emit('GetAllThreads');
-      });
 
       function TestFunction() {
 
@@ -422,7 +417,12 @@
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
-
+           /* if (UserInformation.Permission == "admin" || UserInformation.Name == threads[i].Author) {
+                $(`${threads[i].Id}Delete`).show();
+            }
+            else{
+              $(`${threads[i].Id}Delete`).hide();
+            }*/
             $(`#${threads[i].Id}Title`).click(function(){
               //alert("worked");
               socket.emit('GetNestedThread', {Id: threads[i].Id});
