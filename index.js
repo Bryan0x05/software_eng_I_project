@@ -89,7 +89,10 @@ function ToggleEndorseStatus(DiscussionBoard, PostId) {
     DiscussionBoard.refresh()
     DiscussionBoard.PostList[PostId].Endorsed = !DiscussionBoard.PostList[PostId].Endorsed;
     DiscussionBoard.PushToJSON();
-    return DiscussionBoard.PostList[PostId].Endorsed;
+    if('Title' in DiscussionBoard.PostList[PostId]) {
+        return PostId;
+    }
+    return DiscussionBoard.PostList[PostId].ParentId;
 }
 
 // Upvote or Downvote a Post
@@ -128,6 +131,10 @@ function Vote(DiscussionBoard, User, IsUpvote, PostId) {
         }
     }
     DiscussionBoard.PushToJSON();
+    if('Title' in DiscussionBoard.PostList[PostId]) {
+        return PostId;
+    }
+    return DiscussionBoard.PostList[PostId].ParentId;
 }
 
 // Edits a post if the user is the owner, or an instructor.
@@ -135,16 +142,19 @@ function Vote(DiscussionBoard, User, IsUpvote, PostId) {
 // if newTitle is non-null it is assumed a thread is being edited and
 //      EditPost will attempt to change the title attribute of the post.
 function EditPost(DiscussionBoard, PostId, newBody, newTitle = null) {
-    // todo: add user privilege verification
     DiscussionBoard.refresh();
     let post = DiscussionBoard.PostList[PostId];
     post.Body = newBody;
-    if(newTitle != null)
+    if('Title' in DiscussionBoard.PostList[PostId] && newTitle!=null)
     {
         post.Title = newTitle;
     }
     post.Edited = true;
     DiscussionBoard.PushToJSON();
+    if('Title' in DiscussionBoard.PostList[PostId]) {
+        return PostId;
+    }
+    return DiscussionBoard.PostList[PostId].ParentId;
 }
 
 function DeletePost(DiscussionBoard, User, PostId) {
@@ -177,6 +187,10 @@ function DeletePost(DiscussionBoard, User, PostId) {
     }
     
     DiscussionBoard.PushToJSON();
+    if('Title' in DiscussionBoard.PostList[PostId]) {
+        return PostId;
+    }
+    return DiscussionBoard.PostList[PostId].ParentId;
 }
 
 function GetNestedThread(DiscussionBoard, PostId) {
@@ -270,27 +284,28 @@ io.on('connection', (socket) => {
 
     // expects {Id: string}
     socket.on('ToggleEndorseStatus', (msg) => {
-        io.emit('ToggleEndorseStatus', ToggleEndorseStatus(db, msg.Id))
+        let id = ToggleEndorseStatus(db, msg.Id);
+        io.emit('ToggleEndorseStatus', GetNestedThread(db, id))
     })
 
     // expects {User: string, IsUpvote: boolean, PostId: string}
     socket.on('Vote', (msg) => {
-        Vote(db, msg.User, msg.IsUpvote, msg.PostId);
-        io.emit('Vote', true);
+        let id = Vote(db, msg.User, msg.IsUpvote, msg.PostId);
+        io.emit('Vote', GetNestedThread(db, id));
     })
 
     // expects {PostId: string, newBody: string, newTitle: string}
     //  **if it is a comment and not a thread set newTitle = null**
     socket.on('EditPost', (msg) => {
-        EditPost(db, msg.PostId, msg.newBody, msg.NewTitle);
-        io.emit('EditPost', true);
+        let id = EditPost(db, msg.PostId, msg.newBody, msg.NewTitle);
+        io.emit('EditPost', GetNestedThread(db, id));
     })
 
     // expects {User: string, PostId: string}
     // sending user as "admin" will allow deletion of anything-
     socket.on('DeletePost', (msg) => {
-        DeletePost(db, msg.User, msg.PostId);
-        io.emit(('DeletePost'), true);
+        let id = DeletePost(db, msg.User, msg.PostId);
+        io.emit(('DeletePost'), GetNestedThread(db, id));
     })
 
   });
