@@ -90,7 +90,7 @@ function ToggleEndorseStatus(DiscussionBoard, PostId) {
     DiscussionBoard.refresh()
     DiscussionBoard.PostList[PostId].Endorsed = !DiscussionBoard.PostList[PostId].Endorsed;
     DiscussionBoard.PushToJSON();
-    if('Title' in DiscussionBoard.PostList[PostId]) {
+    if ('Title' in DiscussionBoard.PostList[PostId]) {
         return PostId;
     }
     return DiscussionBoard.PostList[PostId].ParentId;
@@ -101,11 +101,9 @@ function ToggleEndorseStatus(DiscussionBoard, PostId) {
 // IsUpvote = true if upvoting, false if downvoting.
 function Vote(DiscussionBoard, User, IsUpvote, PostId) {
     DiscussionBoard.refresh();
-    if(IsUpvote == true)
-    {
-        if(DiscussionBoard.PostList[PostId].Upvoters.includes(User))
-        {
-            if('Title' in DiscussionBoard.PostList[PostId]) {
+    if (IsUpvote == true) {
+        if (DiscussionBoard.PostList[PostId].Upvoters.includes(User)) {
+            if ('Title' in DiscussionBoard.PostList[PostId]) {
                 return PostId;
             }
             return DiscussionBoard.PostList[PostId].ParentId;
@@ -113,17 +111,14 @@ function Vote(DiscussionBoard, User, IsUpvote, PostId) {
         // Add user to upvoter list.
         DiscussionBoard.PostList[PostId].Upvoters.push(User);
         // If they were on the downvoter list, remove them from it.
-        if(DiscussionBoard.PostList[PostId].Downvoters.includes(User))
-        {
+        if (DiscussionBoard.PostList[PostId].Downvoters.includes(User)) {
             let index = DiscussionBoard.PostList[PostId].Downvoters.indexOf(User);
             DiscussionBoard.PostList[PostId].Downvoters.splice(index, 1);
         }
     }
-    else if(IsUpvote == false)
-    {
-        if(DiscussionBoard.PostList[PostId].Downvoters.includes(User))
-        {
-            if('Title' in DiscussionBoard.PostList[PostId]) {
+    else if (IsUpvote == false) {
+        if (DiscussionBoard.PostList[PostId].Downvoters.includes(User)) {
+            if ('Title' in DiscussionBoard.PostList[PostId]) {
                 return PostId;
             }
             return DiscussionBoard.PostList[PostId].ParentId;
@@ -131,14 +126,13 @@ function Vote(DiscussionBoard, User, IsUpvote, PostId) {
         // Add the user to the downvoter list.
         DiscussionBoard.PostList[PostId].Downvoters.push(User);
         // If they were on the upvoter list, remove them from it.
-        if(DiscussionBoard.PostList[PostId].Upvoters.includes(User))
-        {
+        if (DiscussionBoard.PostList[PostId].Upvoters.includes(User)) {
             let index = DiscussionBoard.PostList[PostId].Upvoters.indexOf(User);
             DiscussionBoard.PostList[PostId].Upvoters.splice(index, 1);
         }
     }
     DiscussionBoard.PushToJSON();
-    if('Title' in DiscussionBoard.PostList[PostId]) {
+    if ('Title' in DiscussionBoard.PostList[PostId]) {
         return PostId;
     }
     return DiscussionBoard.PostList[PostId].ParentId;
@@ -152,13 +146,12 @@ function EditPost(DiscussionBoard, PostId, newBody, newTitle = null) {
     DiscussionBoard.refresh();
     let post = DiscussionBoard.PostList[PostId];
     post.Body = newBody;
-    if('Title' in DiscussionBoard.PostList[PostId] && newTitle!=null)
-    {
+    if ('Title' in DiscussionBoard.PostList[PostId] && newTitle != null) {
         post.Title = newTitle;
     }
     post.Edited = true;
     DiscussionBoard.PushToJSON();
-    if('Title' in DiscussionBoard.PostList[PostId]) {
+    if ('Title' in DiscussionBoard.PostList[PostId]) {
         return PostId;
     }
     return DiscussionBoard.PostList[PostId].ParentId;
@@ -167,20 +160,18 @@ function EditPost(DiscussionBoard, PostId, newBody, newTitle = null) {
 function DeletePost(DiscussionBoard, User, PostId) {
     // user privilege verification
     privileged = false;
-    if(User.Permission === "admin" || User.Name === DiscussionBoard.PostList[PostId].Author)
-    {
+    if (User.Permission === "admin" || User.Name === DiscussionBoard.PostList[PostId].Author) {
         privileged = true;
     }
-    else
-    {
+    else {
         return "Invalid Privileges";
     }
 
     DiscussionBoard.refresh();
 
     // if its a thread
-    if('Title' in DiscussionBoard.PostList[PostId]) {
-        for(let j = 0; j < DiscussionBoard.PostList[PostId].Replies.length; j++) {
+    if ('Title' in DiscussionBoard.PostList[PostId]) {
+        for (let j = 0; j < DiscussionBoard.PostList[PostId].Replies.length; j++) {
             delete DiscussionBoard.PostList[DiscussionBoard.PostList[PostId].Replies[j]];
         }
         delete DiscussionBoard.PostList[PostId];
@@ -202,28 +193,27 @@ function DeletePost(DiscussionBoard, User, PostId) {
 function GetNestedThread(DiscussionBoard, PostId) {
     DiscussionBoard.refresh();
     let parent = DiscussionBoard.PostList[PostId];
-    for(let i = 0; i < parent.Replies.length; ++i)
-    {
+    for (let i = 0; i < parent.Replies.length; ++i) {
         parent.Replies[i] = DiscussionBoard.PostList[parent.Replies[i]];
     }
     return parent;
 }
 
-function SortByTime(DiscussionBoard)  {
+function SortByTime(DiscussionBoard) {
     DiscussionBoard.refresh();
     let tempArr = [];
-    for(var post in DiscussionBoard.PostList) {
+    for (var post in DiscussionBoard.PostList) {
         tempArr.push([post, DiscussionBoard.PostList[post]]);
     }
 
-    tempArr.sort(function(a, b){return a[1].TimeStamp - b[1].TimeStamp});
+    tempArr.sort(function (a, b) { return a[1].TimeStamp - b[1].TimeStamp });
 
     let sorted = {}
-    tempArr.forEach(function(elem){
+    tempArr.forEach(function (elem) {
         sorted[elem[0]] = elem[1];
     });
     return sorted;
-}; 
+};
 
 
 // returns a list of all threads
@@ -233,8 +223,8 @@ function GetAllThreads(DiscussionBoard) {
     DiscussionBoard.refresh();
     let Threads = [];
     let keys = Object.keys(DiscussionBoard.PostList);
-    for(let i = 0; i < keys.length; ++i) {
-        if(DiscussionBoard.PostList[keys[i]].Title != undefined) {
+    for (let i = 0; i < keys.length; ++i) {
+        if (DiscussionBoard.PostList[keys[i]].Title != undefined) {
             Threads.push(DiscussionBoard.PostList[keys[i]]);
         }
     }
@@ -246,7 +236,7 @@ function GetAllThreads(DiscussionBoard) {
 // to a list of all threads with reply objects nested within.
 function GetNestedDiscussionBoard(DiscussionBoard) {
     let threads = GetAllThreads(DiscussionBoard);
-    for(let i = 0; i < threads.length; ++i) {
+    for (let i = 0; i < threads.length; ++i) {
         threads[i] = GetNestedThread(DiscussionBoard, threads[i].Id);
     }
     return threads;
@@ -311,10 +301,10 @@ io.on('connection', (socket) => {
     // sending user as "admin" will allow deletion of anything-
     socket.on('DeletePost', (msg) => {
         let id = DeletePost(db, msg.User, msg.PostId);
-        if(id == true) {
+        if (id == true) {
             io.emit(('DeletePost'), true);
         }
-        else if(id == "Invalid Privileges") {
+        else if (id == "Invalid Privileges") {
             io.emit(('DeletePost'), "Invalid Privileges");
         }
         else {
@@ -322,9 +312,9 @@ io.on('connection', (socket) => {
         }
     })
 
-  });
+});
 
 server.listen(3000, () => {
-  console.log('listening on *:3000');
-  console.log('http://localhost:3000');
+    console.log('listening on *:3000');
+    console.log('http://localhost:3000');
 });
