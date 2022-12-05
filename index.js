@@ -5,6 +5,7 @@ const server = http.createServer(app);
 const { Server } = require("socket.io");
 const io = new Server(server);
 const fs = require('fs');
+const { threadId } = require('worker_threads');
 
 
 function LoadThreadsFromJSON() {
@@ -171,12 +172,16 @@ function DeletePost(DiscussionBoard, User, PostId) {
 
     DiscussionBoard.refresh();
 
+    let threadID = DiscussionBoard.PostList[PostId].ParentId;
+
     // if its a thread
     if('Title' in DiscussionBoard.PostList[PostId]) {
         for(let j = 0; j < DiscussionBoard.PostList[PostId].Replies.length; j++) {
             delete DiscussionBoard.PostList[DiscussionBoard.PostList[PostId].Replies[j]];
         }
         delete DiscussionBoard.PostList[PostId];
+        DiscussionBoard.PushToJSON();
+        return true;
     }
     else {
         // if its a comment
@@ -184,13 +189,9 @@ function DeletePost(DiscussionBoard, User, PostId) {
         arr = arr.filter(e => e !== PostId);
         DiscussionBoard.PostList[DiscussionBoard.PostList[PostId].ParentId].Replies = arr;
         delete DiscussionBoard.PostList[PostId];
+        DiscussionBoard.PushToJSON();
+        return threadId;
     }
-    
-    DiscussionBoard.PushToJSON();
-    if('Title' in DiscussionBoard.PostList[PostId]) {
-        return PostId;
-    }
-    return DiscussionBoard.PostList[PostId].ParentId;
 }
 
 function GetNestedThread(DiscussionBoard, PostId) {
