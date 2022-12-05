@@ -105,7 +105,10 @@ function Vote(DiscussionBoard, User, IsUpvote, PostId) {
     {
         if(DiscussionBoard.PostList[PostId].Upvoters.includes(User))
         {
-            return;
+            if('Title' in DiscussionBoard.PostList[PostId]) {
+                return PostId;
+            }
+            return DiscussionBoard.PostList[PostId].ParentId;
         }
         // Add user to upvoter list.
         DiscussionBoard.PostList[PostId].Upvoters.push(User);
@@ -120,7 +123,10 @@ function Vote(DiscussionBoard, User, IsUpvote, PostId) {
     {
         if(DiscussionBoard.PostList[PostId].Downvoters.includes(User))
         {
-            return;
+            if('Title' in DiscussionBoard.PostList[PostId]) {
+                return PostId;
+            }
+            return DiscussionBoard.PostList[PostId].ParentId;
         }
         // Add the user to the downvoter list.
         DiscussionBoard.PostList[PostId].Downvoters.push(User);
