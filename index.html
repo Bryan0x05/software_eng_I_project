@@ -420,6 +420,17 @@
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Endorse" class="threadOpt">Endorse</button>`);
+            $(`#${threads[i].Id}`).append(`<p id="${threads[i].Id}status"></p>`);
+            
+            if(threads[i].Endorsed){
+              //alert(threads[i].Endorsed);
+              $(`#${threads[i].Id}status`).append("| Endorsed |");
+            }
+
+            if(threads[i].Edited){
+              //alert(threads[i].Endorsed);
+              $(`#${threads[i].Id}status`).append(" Edited");
+            }
             
 
             $(`#${threads[i].Id}Up`).click(function(){
@@ -431,9 +442,7 @@
             });
 
             $(`#${threads[i].Id}Endorse`).click(function(){
-              threads[i].Endorsed = !threads[i].Endorsed;
-              $("#Threads div").remove();
-              socket.emit('GetAllThreads');
+              socket.emit("ToggleEndorseStatus", {Id: threads[i].Id});
             });
 
             $(`#${threads[i].Id}Title`).click(function(){
@@ -481,7 +490,7 @@
         $(`#${thread.Id}`).append(`<p class="btn netvote"> 0 </p>`);
         $(`#${thread.Id}`).append(`<button type="button" id="${thread.Id}Up" class="threadOpt">↑</button>`);
         $(`#${thread.Id}`).append(`<button type="button" id="${thread.Id}Down" class="threadOpt">↓</button>`);
-        $(`#${thread.Id}`).append(`<button type="button" class="threadOpt">…</button>`);
+        $(`#${thread.Id}`).append(`<button type="button" id="${thread.Id}Endorse" class="threadOpt">Endorse</button>`);
         $(`#${thread.Id}`).append(`<button class="btn ccButton" id="${thread.Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
         
         $(`#${thread.Id}Reply`).click(function(){
@@ -509,9 +518,10 @@
           $(`#${replies[i].Id}`).append(`<p>${replies[i].Body}</p>`);
           $(`#${replies[i].Id}`).append(`<p class="Author">Post By: ${replies[i].Author}</p>`);
           $(`#${replies[i].Id}`).append(`<p class="btn netvote"> 0 </p>`);
-          $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">↑</button>');
-          $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">↓</button>');
-          $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
+          $(`#${replies[i].Id}`).append(`<button type="button" id="${replies[i].Id}Up" class="threadOpt">↑</button>`);
+          $(`#${replies[i].Id}`).append(`<button type="button" id="${replies[i].Id}Down" class="threadOpt">↓</button>`);
+          $(`#${replies[i].Id}`).append(`<button type="button" id="${replies[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
+          $(`#${replies[i].Id}`).append(`<button type="button" id="${replies[i].Id}Endorse" class="threadOpt">Endorse</button>`);
           $(`#${replies[i].Id}`).append(`<button class="btn ccButton" id="${replies[i].Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
         
           $(`#${replies[i].Id}Reply`).click(function(){
@@ -547,13 +557,13 @@
 
       socket.on('Vote', function(msg) {
         // msg == true
-        alert(ThreadOrComment);
+        //alert(ThreadOrComment);
         if(ThreadOrComment == 1){
           $("#Threads div").remove();
           socket.emit('GetAllThreads');
         } else if(ThreadOrComment == 2){
           let comment = msg;
-          alert(comment);
+          alert("This don't work yet");
          /* $('#modalFooterArea button').remove();
           $("#Threads div").remove();
           $('#modalFooterArea').append(`<button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>`);
@@ -590,6 +600,11 @@
         socket.emit('GetAllThreads');
       });
 
+      socket.on('ToggleEndorseStatus', function(msg) {
+        $("#Threads div").remove();
+        socket.emit('GetAllThreads');
+      });
+      
     </script>
   </body>
 </html>
