@@ -211,7 +211,7 @@ function GetSortedThreads(Threads, Type) {
   
         // If neither or both posts are endorsed, sort based on type
         if (Type === 'TimeStamp') {
-            return a[Type] - b[Type];
+            return b[Type] - a[Type];
         }
         else if (Type === 'Rating') {
             return (b.Upvoters.length - b.Downvoters.length) - (a.Upvoters.length - a.Downvoters.length);
