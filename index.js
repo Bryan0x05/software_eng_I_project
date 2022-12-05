@@ -178,8 +178,6 @@ function DeletePost(DiscussionBoard, User, PostId) {
 
     DiscussionBoard.refresh();
 
-    let threadID = DiscussionBoard.PostList[PostId].ParentId;
-
     // if its a thread
     if('Title' in DiscussionBoard.PostList[PostId]) {
         for(let j = 0; j < DiscussionBoard.PostList[PostId].Replies.length; j++) {
@@ -191,12 +189,13 @@ function DeletePost(DiscussionBoard, User, PostId) {
     }
     else {
         // if its a comment
+        let parentThreadId = DiscussionBoard.PostList[PostId].ParentId;
         let arr = DiscussionBoard.PostList[DiscussionBoard.PostList[PostId].ParentId].Replies;
         arr = arr.filter(e => e !== PostId);
         DiscussionBoard.PostList[DiscussionBoard.PostList[PostId].ParentId].Replies = arr;
         delete DiscussionBoard.PostList[PostId];
         DiscussionBoard.PushToJSON();
-        return threadId;
+        return parentThreadId;
     }
 }
 
@@ -312,7 +311,15 @@ io.on('connection', (socket) => {
     // sending user as "admin" will allow deletion of anything-
     socket.on('DeletePost', (msg) => {
         let id = DeletePost(db, msg.User, msg.PostId);
-        io.emit(('DeletePost'), GetNestedThread(db, id));
+        if(id == true) {
+            io.emit(('DeletePost'), true);
+        }
+        else if(id == "Invalid Privileges") {
+            io.emit(('DeletePost'), "Invalid Privileges");
+        }
+        else {
+            io.emit(('DeletePost'), GetNestedThread(db, id));
+        }
     })
 
   });
