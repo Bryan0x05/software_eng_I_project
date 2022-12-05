@@ -1,261 +1,278 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-<style>
-    body{
-    background-color: #0d2a0e;
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #0d2a0e;
 
-    }
+        }
 
-    h1{
-    text-align: center;
-    background-color: #1B263B;
-    color: #E0E1DD;
-    width: fit-content;
-    padding: 5px;
-    margin: auto;
-    border-radius: 5px;
-    }
+        h1 {
+            text-align: center;
+            background-color: #1B263B;
+            color: #E0E1DD;
+            width: fit-content;
+            padding: 5px;
+            margin: auto;
+            border-radius: 5px;
+        }
 
-    .threadTitle {
-    font-size: 2em;
-    color: #E0E1DD;
-    }
+        .threadTitle {
+            font-size: 2em;
+            color: #E0E1DD;
+        }
 
-    .threads{
-    background-color: #778DA9;
-    border-radius: 20px;
-    padding: 1%;
-    margin: 15px;
-    border: 3px solid black;
-    }
+        .threads {
+            background-color: #778DA9;
+            border-radius: 20px;
+            padding: 1%;
+            margin: 15px;
+            border: 3px solid black;
+        }
 
-    #ctButton {
-    padding: 10px;
-    border-radius: 20px;
-    margin-left: 15px;
-    background-color:#1B263B;
-    color: #E0E1DD;
-    border: 2px solid #778DA9;
-    }
+        #ctButton {
+            padding: 10px;
+            border-radius: 20px;
+            margin-left: 15px;
+            background-color: #1B263B;
+            color: #E0E1DD;
+            border: 2px solid #778DA9;
+        }
 
-    .threads h6{
-    margin-left: 2%;
-    color: white;
-    }
+        .threads h6 {
+            margin-left: 2%;
+            color: white;
+        }
 
-    .threadOpt{
-    background-color: #1B263B;
-        border-color: #1B263B;
-        color: #E0E1DD;
-    }
+        .threadOpt {
+            background-color: #1B263B;
+            border-color: #1B263B;
+            color: #E0E1DD;
+        }
 
-    /* Login Modal */
-    .login-username {
-    background-color: #778DA9;
-    border-color: #415A77;
-    width: 100%;
-    color: #E0E1DD;
-    }
+        /* Login Modal */
+        .login-username {
+            background-color: #778DA9;
+            border-color: #415A77;
+            width: 100%;
+            color: #E0E1DD;
+        }
 
-    .login-username::placeholder {
-    color: lightgray;
-    }
+        .login-username::placeholder {
+            color: lightgray;
+        }
 
-    .login-password::placeholder {
-    color: lightgray;
-    }
+        .login-password::placeholder {
+            color: lightgray;
+        }
 
-    /* Thread Modal */
-    .modal-content
-    {
-    background-color:#415A77;
-    color:#E0E1DD;
-    }
-    .create-thread-title{
-    background-color: #778DA9;
-    border-color: #1B263B;
-    width: 100%;
-    height: 30px;
-    color: #E0E1DD;
-    resize: none;
-    }
+        /* Thread Modal */
+        .modal-content {
+            background-color: #415A77;
+            color: #E0E1DD;
+        }
 
-    .create-thread-body{
-    background-color: #778DA9;
-    border-color: #1B263B;
-    width: 100%;
-    height: 300px;
-    color: #E0E1DD;
-    resize: none;
-    }
+        .create-thread-title {
+            background-color: #778DA9;
+            border-color: #1B263B;
+            width: 100%;
+            height: 30px;
+            color: #E0E1DD;
+            resize: none;
+        }
 
-    .create-thread-body::placeholder {
-    color: #E0E1DD;
-    }
+        .create-thread-body {
+            background-color: #778DA9;
+            border-color: #1B263B;
+            width: 100%;
+            height: 300px;
+            color: #E0E1DD;
+            resize: none;
+        }
 
-    .create-thread-title::placeholder {
-    color: #E0E1DD;
-    }
+        .create-thread-body::placeholder {
+            color: #E0E1DD;
+        }
 
-    .delete-message{
-    background-color:#415A77;
+        .create-thread-title::placeholder {
+            color: #E0E1DD;
+        }
 
-    }
+        .delete-message {
+            background-color: #415A77;
 
-    .Posts {
-    background-color: #415A77;
-    color:#E0E1DD;
-    margin-bottom: 2%;
-    border-radius: 8px;
-    padding: 1%;
-    border: 3px solid #778DA9;
-    }
+        }
 
-    .Author {
-    background-color: #1B263B;
-    border-radius: 3px;
-    width: fit-content;
-    padding: 2px;
-    border: 1px solid #778DA9;
-    display: inline-block;
-    }
+        .Posts {
+            background-color: #415A77;
+            color: #E0E1DD;
+            margin-bottom: 2%;
+            border-radius: 8px;
+            padding: 1%;
+            border: 3px solid #778DA9;
+        }
 
-    h5 {
-    border-bottom: 1px solid black;
-    margin-bottom: 10px;
-    }
+        .Author {
+            background-color: #1B263B;
+            border-radius: 3px;
+            width: fit-content;
+            padding: 2px;
+            border: 1px solid #778DA9;
+            display: inline-block;
+        }
 
-    .netvote{
-    display:inline-block;
-    background-color: #1B263B;
-    border-color: #1B263B;
-    color: #E0E1DD;
-    padding: 2px;
-    border-radius: 3px;
-    margin-left: 2px;
-    margin-top: 10px;
-    }
+        h5 {
+            border-bottom: 1px solid black;
+            margin-bottom: 10px;
+        }
 
-    .ccButton{
-    padding: 10px;
-    border-radius: 10px;
-    margin-left: 15px;
-    background-color: #1B263B;
-    color: #E0E1DD;
-    border: 2px solid #415A77;
-    display: inline-block;
-    }
+        .netvote {
+            display: inline-block;
+            background-color: #1B263B;
+            border-color: #1B263B;
+            color: #E0E1DD;
+            padding: 2px;
+            border-radius: 3px;
+            margin-left: 2px;
+            margin-top: 10px;
+        }
 
-    .commentThread {
-    margin-top: 2%;
-    }
+        .ccButton {
+            padding: 10px;
+            border-radius: 10px;
+            margin-left: 15px;
+            background-color: #1B263B;
+            color: #E0E1DD;
+            border: 2px solid #415A77;
+            display: inline-block;
+        }
 
-#sidebar{
-    position: fixed;
-    font-family: "Open Sans",sans-serif;
-    background-color: #333333;
-    color: white;
-    padding-top: 30px;
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 10%;
-    height: 100vh;
-    z-index: -1;
-    overflow: hidden;
-}
-.sidebar-dividers{
-    padding: 1px;
-    overflow: hidden;
-}
-#topbar{
-    font-family: "Open Sans",sans-serif;
-}
-#LoginPageModal{
-    display: none;
-}
-.container {
-    background-color: #2a0d0d;
-    min-height: 700px;
-    position: relative;
-    left: 10%;
-    z-index: -2;
-}
+        .commentThread {
+            margin-top: 2%;
+        }
+
+        #sidebar {
+            position: fixed;
+            font-family: "Open Sans", sans-serif;
+            background-color: #333333;
+            color: white;
+            padding-top: 30px;
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 10%;
+            height: 100vh;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .sidebar-dividers {
+            padding: 1px;
+            overflow: hidden;
+        }
+
+        #topbar {
+            font-family: "Open Sans", sans-serif;
+        }
+
+        #LoginPageModal {
+            display: none;
+        }
+
+        .container {
+            background-color: #2a0d0d;
+            min-height: 700px;
+            position: relative;
+            left: 10%;
+            z-index: -2;
+        }
     </style>
-  
+
     <title>Discussion Board Prototype UI</title>
-  </head>
-  <body>
-    
-    <div id = "sidebar">
-        <p class = "fw-bold">COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
+</head>
+
+<body>
+
+    <div id="sidebar">
+        <p class="fw-bold">COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
         <p>
-            Home page<hr class = "sidebar-dividers">
+            Home page
+            <hr class="sidebar-dividers">
             Announcements<br><br>
-            Discusson Board<hr class = "sidebar-dividers">
+            Discusson Board
+            <hr class="sidebar-dividers">
             Gradebook
         </p>
     </div>
 
-    <div class = "bg-white fw-bold" id="topbar">
+    <div class="bg-white fw-bold" id="topbar">
         <p> COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
     </div>
-   
+
     <!--Meta buttons-->
-    <button id = "logoutbutton" class = "btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#LoginPageModal">Logout</button>
+    <button id="logoutbutton" class="btn btn-secondary float-end" data-bs-toggle="modal"
+        data-bs-target="#LoginPageModal">Logout</button>
+    <button id="return" class="btn btn-secondary float-end">Return</button>
     <!--Thread Creation Modal -->
-    <div class="modal fade" id="CreateThreadModal" tabindex="-1" aria-labelledby="CreateThreadModalLabel" aria-hidden="true" data-bs-backdrop="static">
-      <div class="modal-dialog">
-        <!--This is where the modal content background and text color are set-->
-        <div class="modal-content text-white">
-          <div class="modal-header">
-            <h2 class="modal-title fs-5" id="CreateThreadModalLabel">New Thread</h2>
-            <!--Button back is set to white here to make it stand out on black background-->
-            <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <!--Modal body is here-->
-          <div class="modal-body">
-            <textarea id="NewThreadTitle" class = "create-thread-title" placeholder = "Enter thread title"></textarea>
-            <br>
-            <textarea id="NewThreadBody" class = "create-thread-body" placeholder="Enter thread body"></textarea>
-            <br>
-            <select list="tags" required>
-              <option value="">Select tag</option>
-              <option value="Question">Question</option>
-              <option value="Assignment">Assignment</option>
-            </select>  
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="PostNewThread" data-bs-dismiss="modal" class="btn btn-primary">Post</button>
-          </div>
+    <div class="modal fade" id="CreateThreadModal" tabindex="-1" aria-labelledby="CreateThreadModalLabel"
+        aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <!--This is where the modal content background and text color are set-->
+            <div class="modal-content text-white">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="CreateThreadModalLabel">New Thread</h2>
+                    <!--Button back is set to white here to make it stand out on black background-->
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <!--Modal body is here-->
+                <div class="modal-body">
+                    <textarea id="NewThreadTitle" class="create-thread-title"
+                        placeholder="Enter thread title"></textarea>
+                    <br>
+                    <textarea id="NewThreadBody" class="create-thread-body" placeholder="Enter thread body"></textarea>
+                    <br>
+                    <select list="tags" required>
+                        <option value="">Select tag</option>
+                        <option value="Question">Question</option>
+                        <option value="Assignment">Assignment</option>
+                    </select>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="PostNewThread" data-bs-dismiss="modal"
+                        class="btn btn-primary">Post</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
     <!-- Container -->
     <div class="container">
         <h1>Discussion Board Prototype UI</h1> <br>
-    
+
         <div class="row justify-content-end">
-           <div class="col-md-4">
-                <button class="btn btn-secondary float-end" type="button" id="backButton">
+            <!-- <div class="col-md-4">
+              
+                <button class = "btn" type="button" id="backButton">
                   Back
                 </button>
-            </div>
+            </div>  -->
             <div class="col-md-4">
-              <!--Thread modal button-->
-                <button class = "btn" type="button" id="ctButton" data-bs-toggle="modal" data-bs-target="#CreateThreadModal">
-                  + Create Thread
+                <!--Thread modal button-->
+                <button class="btn" type="button" id="ctButton" data-bs-toggle="modal"
+                    data-bs-target="#CreateThreadModal">
+                    + Create Thread
                 </button>
             </div>
         </div>
         <div id="Threads" class="row justify-content-center">
-         <!-- <div class="threads col-md-8">
+            <!-- <div class="threads col-md-8">
               <h6>Example Author</h6>
               <hr>
               <a href="Thread.html"><h6 class="threadTitle">Example Title</h6></a>
@@ -271,69 +288,76 @@
     </div>
     <!--Edit/delete  Modal -->
     <div class="modal fade" id="EditOrDelete" tabindex="-1" aria-labelledby="EditOrDeleteLabel" aria-hidden="true"
-      data-bs-backdrop="static">
-      <div class="modal-dialog">
-        <!--This is where the modal content background and text color are set-->
-        <div class="modal-content text-white">
-          <div class="modal-header">
-            <h2 class="modal-title fs-5" id="EditOrDelete">Edit Post</h2>
-            <!--Button back is set to white here to make it stand out on black background-->
-            <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <!--Modal body is here-->
-          <div class="modal-body">
-            <textarea class="thread-title" id="EditThreadTitle" placeholder="Edit thread title"></textarea>
-            <br>
-            <textarea class="thread-body" id="EditThreadBody" placeholder="Edit thread body"></textarea>
-          </div>
-          <div class="modal-footer">
-            <button type="button" id="EditThread" data-bs-dismiss="modal" class="btn btn-primary">Save Edit</button>
-          </div>
+        data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <!--This is where the modal content background and text color are set-->
+            <div class="modal-content text-white">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="EditOrDelete">Edit Post</h2>
+                    <!--Button back is set to white here to make it stand out on black background-->
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <!--Modal body is here-->
+                <div class="modal-body">
+                    <textarea class="thread-title" id="EditThreadTitle" placeholder="Edit thread title"></textarea>
+                    <br>
+                    <textarea class="thread-body" id="EditThreadBody" placeholder="Edit thread body"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" id="EditThread" data-bs-dismiss="modal" class="btn btn-primary">Save
+                        Edit</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
     <!--Delete Modal -->
     <div class="modal fade" id="DeletePost" tabindex="-1" aria-labelledby="DeletePostLabel" aria-hidden="true">
-      <div class="modal-dialog">
-        <!--This is where the modal content background and text color are set-->
-        <div class="modal-content text-white">
-          <div class="modal-header">
-            <h2 class="modal-title fs-5" id="DeletePost">Confirmation</h2>
-            <!--Button back is set to white here to make it stand out on black background-->
-            <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <!--Modal body is here-->
-          <div class="modal-body">
-            <h1 class ="delete-message"> Post Deleted! </h1>
-          </div>
-          <div class="modal-footer">
-            <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Okay</button>
-          </div>
+        <div class="modal-dialog">
+            <!--This is where the modal content background and text color are set-->
+            <div class="modal-content text-white">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="DeletePost">Confirmation</h2>
+                    <!--Button back is set to white here to make it stand out on black background-->
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <!--Modal body is here-->
+                <div class="modal-body">
+                    <h1 class="delete-message"> Post Deleted! </h1>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary">Okay</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
     <!--Create Comment modal-->
-    <div class="modal fade" id="CreateCommentModal" tabindex="-1" aria-labelledby="CreateCommentModalLabel" aria-hidden="true" data-bs-backdrop="static">
-      <div class="modal-dialog">
-        <!--This is where the modal content background and text color are set-->
-        <div class="modal-content text-white">
-          <div class="modal-header">
-            <h2 class="modal-title fs-5" id="CreateCommentModalLabel">New Comment</h2>
-            <!--Button back is set to white here to make it stand out on black background-->
-            <button type="button" class="btn-close bg-white" data-bs-dismiss="modal" aria-label="Close"></button>
-          </div>
-          <!--Modal body is here-->
-          <div class="modal-body">
-            <textarea class ="thread-body" id="NewCommentBody" placeholder="Enter Comment Text"></textarea>
-          </div>
-          <div class="modal-footer" id="modalFooterArea">
-            <button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>
-          </div>
+    <div class="modal fade" id="CreateCommentModal" tabindex="-1" aria-labelledby="CreateCommentModalLabel"
+        aria-hidden="true" data-bs-backdrop="static">
+        <div class="modal-dialog">
+            <!--This is where the modal content background and text color are set-->
+            <div class="modal-content text-white">
+                <div class="modal-header">
+                    <h2 class="modal-title fs-5" id="CreateCommentModalLabel">New Comment</h2>
+                    <!--Button back is set to white here to make it stand out on black background-->
+                    <button type="button" class="btn-close bg-white" data-bs-dismiss="modal"
+                        aria-label="Close"></button>
+                </div>
+                <!--Modal body is here-->
+                <div class="modal-body">
+                    <textarea class="thread-body" id="NewCommentBody" placeholder="Enter Comment Text"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" data-bs-dismiss="modal" id="PostNewComment"
+                        class="btn btn-primary">Post</button>
+                </div>
+            </div>
         </div>
-      </div>
     </div>
     <!--Login modal-->
-    <div class="modal fade" id="LoginPageModal" tabindex="-1" aria-labelledby="Loginpagemodal" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal fade" id="LoginPageModal" tabindex="-1" aria-labelledby="Loginpagemodal" aria-hidden="true"
+        data-bs-backdrop="static">
         <div class="modal-dialog">
             <!--This is where the modal content background and text color are set-->
             <div class="modal-content text-white">
@@ -348,274 +372,210 @@
                 </div>
                 <div class="modal-footer">
                     <p>Are you a </p>
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary" id = "StudentButton">Student</button>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary"
+                        id="StudentButton">Student</button>
                     <p>or</p>
-                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary" id = "InstructorButton">Instructor</button>
+                    <button type="button" data-bs-dismiss="modal" class="btn btn-primary"
+                        id="InstructorButton">Instructor</button>
                     <p>?</p>
                 </div>
             </div>
         </div>
     </div>
     <!--login modal-->>
-</div>
+    </div>
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
-    </script>
-    <script src="https://code.jquery.com/jquery-3.6.1.js" integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
+        integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous">
+        </script>
+    <script src="https://code.jquery.com/jquery-3.6.1.js"
+        integrity="sha256-3zlB5s2uwoUzrXK3BT7AX3FyvojsraNFxCc2vC/7pNI=" crossorigin="anonymous"></script>
     <script src="/socket.io/socket.io.js"></script>
     <!--Cilent Javascript-->
     <script>
-      var socket = io();
-      var UserInformation = {
-        Name: "username",
-        Permission: "student"
-      }
-      var ThreadOrComment = 1;
-      socket.emit('GetAllThreads');
-     // student button listener on login modal, being used for testing atm
-    $("#StudentButton").click(function () {
-        console.log("Student button pressed");
-        UserInformation.Name = $("input[id=LoginUsername]").val();
-        UserInformation.Permission = "student";
-        //this updates the page to reflect the visibility changes caused by different level of user permissions
-        socket.emit('GetAllThreads');
-
-    });
-    $("#InstructorButton").click(function () {
-        console.log("Instructor button pressed");
-        UserInformation.Name = $("input[id=LoginUsername]").val();
-        UserInformation.Permission = "admin";
-        //this updates the page to reflect the visibility changes caused by different level of user permissions
-        socket.emit('GetAllThreads');
-
-    });
-      function TestFunction() {
-
-        //socket.emit('CreateThread', {Author: "Bryan", Title: "This is a cool site", Body: "Team 5 rules", Tag: "Bragging"})
-        
-        //socket.emit('GetNestedDiscussionBoard');
-        //socket.emit('GetNestedThread', {Id: "alex_1669611033378"});
-        //socket.emit('DeletePost', {User: "admin", PostId: threads[threads.length-1].Id});
-      }
-
-      socket.on('GetAllThreads', function(msg) {
-        ThreadOrComment = 1;
-        //clears current threads
-        $("#Threads div").remove();
-        $("#ctButton").show();
-        $('#backButton').hide();
-        //sets the response to the handle to a more readable variable
-        let threads = msg;
-
-        console.log(threads)
-        
-        //Creates a new Thread element onto the page
-        for(let i = 0; i < threads.length; ++i)
-        {
-            $("#Threads").append(`<div id=${threads[i].Id} class="threads commentThread col-md-8"></div>`);
-            $(`#${threads[i].Id}`).append(`<h6>Post by: ${threads[i].Author}<h6>`);
-            $(`#${threads[i].Id}`).append('<hr>');
-            $(`#${threads[i].Id}`).append(`<h6 id="${threads[i].Id}Title" class="threadTitle">${threads[i].Title}</h6>`);
-            $(`#${threads[i].Id}`).append(`<button type="button" id="" class="threadOpt">${threads[i].Upvoters.length - threads[i].Downvoters.length}</button>`);
-            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Up" class="threadOpt">↑</button>`);
-            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Down" class="threadOpt">↓</button>`);
-            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
-            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
-            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Endorse" class="threadOpt">Endorse</button>`);
-            //hides options based on user permission unless user is the author.
-            if (UserInformation.Permission == "admin" || UserInformation.Name == threads[i].Author) {
-                $(`#${threads[i].Id}Delete`).show();
-                $(`#${threads[i].Id}Edit`).show();
-            }
-            else{
-                $(`#${threads[i].Id}Delete`).hide();
-                $(`#${threads[i].Id}Edit`).hide();
-            }
-            $(`#${threads[i].Id}`).append(`<p id="${threads[i].Id}status"></p>`);
-            
-            if(threads[i].Endorsed){
-              //alert(threads[i].Endorsed);
-              $(`#${threads[i].Id}status`).append("| Endorsed |");
-            }
-
-            if(threads[i].Edited){
-              //alert(threads[i].Endorsed);
-              $(`#${threads[i].Id}status`).append(" Edited");
-            }
-
-            $(`#${threads[i].Id}Up`).click(function(){
-              socket.emit('Vote', {User: "Tester", IsUpvote: true, PostId: threads[i].Id}); //STAR_
-            });
-
-            $(`#${threads[i].Id}Down`).click(function(){
-              socket.emit('Vote', {User: "Tester", IsUpvote: false, PostId: threads[i].Id}); //STAR_
-            });
-
-            $(`#${threads[i].Id}Endorse`).click(function(){
-              socket.emit("ToggleEndorseStatus", {Id: threads[i].Id});
-            });
-
-            $(`#${threads[i].Id}Title`).click(function(){
-              //alert("worked");
-              socket.emit('GetNestedThread', {Id: threads[i].Id});
-            });
-            
-            $(`#${threads[i].Id}Delete`).click(function(){
-              socket.emit('DeletePost', {User: "admin", PostId: threads[i].Id}); //Change when bryan makes sign in STAR_
-            });
-
-            $(`#${threads[i].Id}Edit`).click(function(){
-              $('#EditThread').click(function(){
-                let title = $('#EditThreadTitle').val();
-                let body = $('#EditThreadBody').val();
-                //console.log(title, body);
-                socket.emit('EditPost', {PostId: threads[i].Id, newBody: body, NewTitle: title});
-              });
-            });
+        var socket = io();
+        var UserInformation = {
+            Name: "username",
+            Permission: "student"
         }
-      });
+        socket.emit('GetAllThreads');
+        // student button listener on login modal, being used for testing atm
+        $("#StudentButton").click(function () {
+            console.log("Student button pressed");
+            UserInformation.Name = $("input[id=LoginUsername]").val();
+            UserInformation.Permission = "student";
+            //this updates the page to reflect the visibility changes caused by different level of user permissions
+            socket.emit('GetAllThreads');
 
-
-
-
-      socket.on('GetNestedDiscussionBoard', function(msg) {
-        let db = msg;
-        console.log(db);
-      });
-
-      socket.on('GetNestedThread', function(msg) {
-        ThreadOrComment = 2;
-        //clears screen to open a thread
-        $("#Threads div").remove();
-        $("#ctButton").hide();
-        $('#backButton').show();
-
-        let thread = msg;
-        let replies = thread.Replies;
-        //console.log(thread);
-        $("#Threads").append(`<div id=${thread.Id} class="col-md-8 Posts"></div>`);
-        $(`#${thread.Id}`).append(`<h5>${thread.Title}</h5>`);
-        $(`#${thread.Id}`).append(`<p>${thread.Body}</p>`);
-        $(`#${thread.Id}`).append(`<p class="Author">Post By: ${thread.Author}</p>`);
-        $(`#${thread.Id}`).append(`<p class="btn netvote"> 0 </p>`);
-        $(`#${thread.Id}`).append(`<button type="button" id="${thread.Id}Up" class="threadOpt">↑</button>`);
-        $(`#${thread.Id}`).append(`<button type="button" id="${thread.Id}Down" class="threadOpt">↓</button>`);
-        $(`#${thread.Id}`).append(`<button type="button" id="${thread.Id}Endorse" class="threadOpt">Endorse</button>`);
-        $(`#${thread.Id}`).append(`<button class="btn ccButton" id="${thread.Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
-        
-        $(`#${thread.Id}Reply`).click(function(){
-              $('#PostNewComment').click(function(){
-                let body = $('#NewCommentBody').val();
-                //console.log(title, body);
-                socket.emit('CreateReply', {ParentId: thread.Id, Author: `TesterA`, Body: body, ParentAuthor: thread.Author}); //change STAR_
-              });
         });
-        
-        $(`#${thread.Id}Up`).click(function(){
-          socket.emit('Vote', {User: "Tester", IsUpvote: true, PostId: thread.Id}); //STAR_
-        });
+        $("#InstructorButton").click(function () {
+            console.log("Instructor button pressed");
+            UserInformation.Name = $("input[id=LoginUsername]").val();
+            UserInformation.Permission = "admin";
+            //this updates the page to reflect the visibility changes caused by different level of user permissions
+            socket.emit('GetAllThreads');
 
-        $(`#${thread.Id}Down`).click(function(){
-          socket.emit('Vote', {User: "Tester", IsUpvote: false, PostId: thread.Id}); //STAR_
         });
-        
-        
+        function TestFunction() {
 
-        //console.log(replies.length);
-        
-        for(let i = 0; i < replies.length; i++){
-          $("#Threads").append(`<div id=${replies[i].Id} class="col-md-7 Posts"></div>`);
-          $(`#${replies[i].Id}`).append(`<p>${replies[i].Body}</p>`);
-          $(`#${replies[i].Id}`).append(`<p class="Author">Post By: ${replies[i].Author}</p>`);
-          $(`#${replies[i].Id}`).append(`<p class="btn netvote"> 0 </p>`);
-          $(`#${replies[i].Id}`).append(`<button type="button" id="${replies[i].Id}Up" class="threadOpt">↑</button>`);
-          $(`#${replies[i].Id}`).append(`<button type="button" id="${replies[i].Id}Down" class="threadOpt">↓</button>`);
-          $(`#${replies[i].Id}`).append(`<button type="button" id="${replies[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
-          $(`#${replies[i].Id}`).append(`<button type="button" id="${replies[i].Id}Endorse" class="threadOpt">Endorse</button>`);
-          $(`#${replies[i].Id}`).append(`<button class="btn ccButton" id="${replies[i].Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
-        
-          $(`#${replies[i].Id}Reply`).click(function(){
-              $('#PostNewComment').click(function(){
-                let body = $('#NewCommentBody').val();
-                //console.log(title, body);
-                socket.emit('CreateReply', {ParentId: thread.Id, Author: `Tester${i}`, Body: body, ParentAuthor: replies[i].Author}); //change STAR_
-                $('#PostNewComment').click(null);
-              });
-          });
-        
+            //socket.emit('CreateThread', {Author: "Bryan", Title: "This is a cool site", Body: "Team 5 rules", Tag: "Bragging"})
+
+            //socket.emit('GetNestedDiscussionBoard');
+            //socket.emit('GetNestedThread', {Id: "alex_1669611033378"});
+            //socket.emit('DeletePost', {User: "admin", PostId: threads[threads.length-1].Id});
         }
 
-      });
+        socket.on('GetAllThreads', function (msg) {
+            //clears current threads
+            $("#Threads div").remove();
+            $("#ctButton").show();
+            //sets the response to the handle to a more readable variable
+            let threads = msg;
 
-      socket.on('CreateThread', function(msg) {
-        let newThreadId = msg;
-        console.log(msg);
-        $("#Threads div").remove();
-        socket.emit('GetAllThreads');
-      });
+            console.log(threads)
 
-      socket.on('ToggleEndorseStatus', function(msg) {
-        let newEndorsementStatus = msg;
-        console.log(newEndorsementStatus);
-      });
+            //Creates a new Thread element onto the page
+            for (let i = 0; i < threads.length; ++i) {
+                $("#Threads").append(`<div id=${threads[i].Id} class="threads commentThread col-md-8"></div>`);
+                $(`#${threads[i].Id}`).append(`<h6>Post by: ${threads[i].Author}<h6>`);
+                $(`#${threads[i].Id}`).append('<hr>');
+                $(`#${threads[i].Id}`).append(`<h6 id="${threads[i].Id}Title" class="threadTitle">${threads[i].Title}</h6>`);
+                $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↑</button>');
+                $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↓</button>');
+                $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
+                $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
+                $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
+                //hides options based on user permission unless user is the author.
+                if (UserInformation.Permission == "admin" || UserInformation.Name == threads[i].Author) {
+                    $(`#${threads[i].Id}Delete`).show();
+                    $(`#${threads[i].Id}Edit`).show();
+                }
+                else {
+                    $(`#${threads[i].Id}Delete`).hide();
+                    $(`#${threads[i].Id}Edit`).hide();
 
-      socket.on('DeletePost', function(msg) {
-        $("#Threads div").remove();
-        socket.emit('GetAllThreads');
-        console.log("removed post");
-      });
+                }
+                $(`#${threads[i].Id}Title`).click(function () {
+                    //alert("worked");
+                    socket.emit('GetNestedThread', { Id: threads[i].Id });
+                });
 
-      socket.on('Vote', function(msg) {
-        // msg == true
-        //alert(ThreadOrComment);
-        if(ThreadOrComment == 1){
-          $("#Threads div").remove();
-          socket.emit('GetAllThreads');
-        } else if(ThreadOrComment == 2){
-          let comment = msg;
-          alert("This don't work yet");
-         /* $('#modalFooterArea button').remove();
-          $("#Threads div").remove();
-          $('#modalFooterArea').append(`<button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>`);
-          socket.emit('GetNestedThread', {Id: comment.Id}); */
-        }
-        
-      });
+                $(`#${threads[i].Id}Delete`).click(function () {
+                    socket.emit('DeletePost', { User: "admin", PostId: threads[i].Id }); //Change when bryan makes sign in STAR_
+                });
 
-      socket.on('EditPost', function(msg) {
-        // msg == true
-        alert(UserInformation.Name);
-        $("#Threads div").remove();
-        socket.emit('GetAllThreads');
-      });
+                $(`#${threads[i].Id}Edit`).click(function () {
+                    $('#EditThread').click(function () {
+                        let title = $('#EditThreadTitle').val();
+                        let body = $('#EditThreadBody').val();
+                        //console.log(title, body);
+                        socket.emit('EditPost', { PostId: threads[i].Id, newBody: body, NewTitle: title });
+                    });
+                });
+            }
+        });
 
-      socket.on('CreateReply', function(msg) {
-        let comment = msg;
-        $('#modalFooterArea button').remove();
-        $("#Threads div").remove();
-        $('#modalFooterArea').append(`<button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>`);
-        socket.emit('GetNestedThread', {Id: comment.ParentId});
-      });
+        socket.on('GetNestedDiscussionBoard', function (msg) {
+            let db = msg;
+            console.log(db);
+        });
 
-      //Whenever the post button is pressed to post a new Thread
-      $('#PostNewThread').click(function(){
-        let title = $('#NewThreadTitle').val();
-        let body = $('#NewThreadBody').val();
-        //console.log(title, body);
-        socket.emit('CreateThread', {Author: "Tester", Title: title, Body: body, Tag: ""}); //Change when bryan makes sign in STAR_
-      });
+        socket.on('GetNestedThread', function (msg) {
+            //clears screen to open a thread
+            $("#Threads div").remove();
+            $("#ctButton").hide();
+            let thread = msg;
+            let replies = thread.Replies;
+            //console.log(thread);
+            $("#Threads").append(`<div id=${thread.Id} class="col-md-8 Posts"></div>`);
+            $(`#${thread.Id}`).append(`<h5>${thread.Title}</h5>`);
+            $(`#${thread.Id}`).append(`<p>${thread.Body}</p>`);
+            $(`#${thread.Id}`).append(`<p class="Author">Post By: ${thread.Author}</p>`);
+            $(`#${thread.Id}`).append(`<p class="btn netvote"> 0 </p>`);
+            $(`#${thread.Id}`).append('<button type="button" class="threadOpt">↑</button>');
+            $(`#${thread.Id}`).append('<button type="button" class="threadOpt">↓</button>');
+            $(`#${thread.Id}`).append('<button type="button" class="threadOpt">…</button>');
+            $(`#${thread.Id}`).append(`<button class="btn ccButton" id="${thread.Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
 
-      $('#backButton').click(function(){
-        $("#Threads div").remove();
-        socket.emit('GetAllThreads');
-      });
+            $(`#${thread.Id}Reply`).click(function () {
+                alert("callT");
+                $('#PostNewComment').click(function () {
+                    let body = $('#NewCommentBody').val();
+                    //console.log(title, body);
+                    socket.emit('CreateReply', { ParentId: thread.Id, Author: `TesterA`, Body: body, ParentAuthor: thread.Author }); //change STAR_
+                });
+            });
 
-      socket.on('ToggleEndorseStatus', function(msg) {
-        $("#Threads div").remove();
-        socket.emit('GetAllThreads');
-      });
-      
+
+            //console.log(replies.length);
+
+            for (let i = 0; i < replies.length; i++) {
+                $("#Threads").append(`<div id=${replies[i].Id} class="col-md-7 Posts"></div>`);
+                $(`#${replies[i].Id}`).append(`<p>${replies[i].Body}</p>`);
+                $(`#${replies[i].Id}`).append(`<p class="Author">Post By: ${replies[i].Author}</p>`);
+                $(`#${replies[i].Id}`).append(`<p class="btn netvote"> 0 </p>`);
+                $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">↑</button>');
+                $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">↓</button>');
+                $(`#${replies[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
+                $(`#${replies[i].Id}`).append(`<button class="btn ccButton" id="${replies[i].Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
+
+                $(`#${replies[i].Id}Reply`).click(function () {
+                    alert("call");
+                    $('#PostNewComment').click(function () {
+                        let body = $('#NewCommentBody').val();
+                        //console.log(title, body);
+                        socket.emit('CreateReply', { ParentId: thread.Id, Author: `Tester${i}`, Body: body, ParentAuthor: replies[i].Author }); //change STAR_
+                    });
+                });
+
+            }
+
+        });
+
+        socket.on('CreateThread', function (msg) {
+            let newThreadId = msg;
+            console.log(msg);
+            $("#Threads div").remove();
+            socket.emit('GetAllThreads');
+        });
+
+        socket.on('ToggleEndorseStatus', function (msg) {
+            let newEndorsementStatus = msg;
+            console.log(newEndorsementStatus);
+        });
+
+        socket.on('DeletePost', function (msg) {
+            $("#Threads div").remove();
+            socket.emit('GetAllThreads');
+            console.log("removed post");
+        });
+
+        socket.on('Vote', function (msg) {
+            // msg == true
+        });
+
+        socket.on('EditPost', function (msg) {
+            // msg == true
+            alert(UserInformation.Name);
+            $("#Threads div").remove();
+            socket.emit('GetAllThreads');
+        });
+
+        socket.on('CreateReply', function (msg) {
+            let comment = msg;
+            $("#Threads div").remove();
+            socket.emit('GetNestedThread', { Id: comment.ParentId });
+        });
+
+        //Whenever the post button is pressed to post a new Thread
+        $('#PostNewThread').click(function () {
+            let title = $('#NewThreadTitle').val();
+            let body = $('#NewThreadBody').val();
+            //console.log(title, body);
+            socket.emit('CreateThread', { Author: "Tester", Title: title, Body: body, Tag: "" }); //Change when bryan makes sign in STAR_
+        });
+
     </script>
-  </body>
+</body>
+
 </html>
