@@ -14,12 +14,9 @@
             background-color: #0D1B2A;
         }
 
-
         .container {
-            background-color: #1B263B;
+            background-color: #0D1B2A;
             min-height: 700px;
-            position: relative;
-            left: 10%;
             z-index: -2;
         }
 
@@ -173,26 +170,27 @@
         .commentThread {
             margin-top: 2%;
         }
+
         
-        #sidebar{
-            position: fixed;
-            font-family: "Open Sans",sans-serif;
-            background-color: #333333;
-            color: white;
-            padding-top: 30px;
-            padding-left: 5px;
-            padding-right: 5px;
-            width: 10%;
-            height: 100vh;
-            z-index: -1;
-        }
-        .sidebar-dividers{
-            padding: 1px;
-            
-        }
-        #topbar{
-            font-family: "Open Sans",sans-serif;
-        }
+#sidebar{
+    position: fixed;
+    font-family: "Open Sans",sans-serif;
+    background-color: #333333;
+    color: white;
+    padding-top: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 10%;
+    height: 100vh;
+    z-index: -1;
+}
+.sidebar-dividers{
+    padding: 1px;
+    
+}
+#topbar{
+    font-family: "Open Sans",sans-serif;
+}
         #LoginPageModal {
             display: none;
         }
@@ -202,6 +200,7 @@
 </head>
 
 <body>
+    
     <div id = "sidebar">
         <p class = "fw-bold">COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
         <p>
@@ -215,7 +214,7 @@
     <div class = "bg-white fw-bold" id="topbar">
         <p> COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
     </div>
-  
+   
     <!--Meta buttons-->
     <button id="logoutbutton" class="btn btn-secondary float-end" data-bs-toggle="modal"
         data-bs-target="#LoginPageModal">Logout</button>
