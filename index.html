@@ -380,13 +380,20 @@
      // student button listener on login modal, being used for testing atm
     $("#StudentButton").click(function () {
         console.log("Student button pressed");
-        username = $("input[id=LoginUsername]").val();
+        UserInformation.Name = $("input[id=LoginUsername]").val();
+        UserInformation.Permission = "student";
+        //this updates the page to reflect the visibility changes caused by different level of user permissions
+        socket.emit('GetAllThreads');
+
     });
     $("#InstructorButton").click(function () {
         console.log("Instructor button pressed");
-        username = $("input[id=LoginUsername]").val();
-    });
+        UserInformation.Name = $("input[id=LoginUsername]").val();
+        UserInformation.Permission = "admin";
+        //this updates the page to reflect the visibility changes caused by different level of user permissions
+        socket.emit('GetAllThreads');
 
+    });
       function TestFunction() {
 
         //socket.emit('CreateThread', {Author: "Bryan", Title: "This is a cool site", Body: "Team 5 rules", Tag: "Bragging"})
@@ -420,6 +427,15 @@
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Endorse" class="threadOpt">Endorse</button>`);
+            //hides options based on user permission unless user is the author.
+            if (UserInformation.Permission == "admin" || UserInformation.Name == threads[i].Author) {
+                $(`#${threads[i].Id}Delete`).show();
+                $(`#${threads[i].Id}Edit`).show();
+            }
+            else{
+                $(`#${threads[i].Id}Delete`).hide();
+                $(`#${threads[i].Id}Edit`).hide();
+            }
             $(`#${threads[i].Id}`).append(`<p id="${threads[i].Id}status"></p>`);
             
             if(threads[i].Endorsed){
@@ -431,7 +447,6 @@
               //alert(threads[i].Endorsed);
               $(`#${threads[i].Id}status`).append(" Edited");
             }
-            
 
             $(`#${threads[i].Id}Up`).click(function(){
               socket.emit('Vote', {User: "Tester", IsUpvote: true, PostId: threads[i].Id}); //STAR_
