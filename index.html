@@ -375,6 +375,7 @@
         Name: "username",
         Permission: "student"
       }
+      var ThreadOrComment = 1;
       socket.emit('GetAllThreads');
      // student button listener on login modal, being used for testing atm
     $("#StudentButton").click(function () {
@@ -396,6 +397,7 @@
       }
 
       socket.on('GetAllThreads', function(msg) {
+        ThreadOrComment = 1;
         //clears current threads
         $("#Threads div").remove();
         $("#ctButton").show();
@@ -412,17 +414,28 @@
             $(`#${threads[i].Id}`).append(`<h6>Post by: ${threads[i].Author}<h6>`);
             $(`#${threads[i].Id}`).append('<hr>');
             $(`#${threads[i].Id}`).append(`<h6 id="${threads[i].Id}Title" class="threadTitle">${threads[i].Title}</h6>`);
-            $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↑</button>');
-            $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">↓</button>');
+            $(`#${threads[i].Id}`).append(`<button type="button" id="" class="threadOpt">${threads[i].Upvoters.length - threads[i].Downvoters.length}</button>`);
+            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Up" class="threadOpt">↑</button>`);
+            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Down" class="threadOpt">↓</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
-            $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
-           /* if (UserInformation.Permission == "admin" || UserInformation.Name == threads[i].Author) {
-                $(`${threads[i].Id}Delete`).show();
-            }
-            else{
-              $(`${threads[i].Id}Delete`).hide();
-            }*/
+            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Endorse" class="threadOpt">Endorse</button>`);
+            
+
+            $(`#${threads[i].Id}Up`).click(function(){
+              socket.emit('Vote', {User: "Tester", IsUpvote: true, PostId: threads[i].Id}); //STAR_
+            });
+
+            $(`#${threads[i].Id}Down`).click(function(){
+              socket.emit('Vote', {User: "Tester", IsUpvote: false, PostId: threads[i].Id}); //STAR_
+            });
+
+            $(`#${threads[i].Id}Endorse`).click(function(){
+              threads[i].Endorsed = !threads[i].Endorsed;
+              $("#Threads div").remove();
+              socket.emit('GetAllThreads');
+            });
+
             $(`#${threads[i].Id}Title`).click(function(){
               //alert("worked");
               socket.emit('GetNestedThread', {Id: threads[i].Id});
@@ -452,6 +465,7 @@
       });
 
       socket.on('GetNestedThread', function(msg) {
+        ThreadOrComment = 2;
         //clears screen to open a thread
         $("#Threads div").remove();
         $("#ctButton").hide();
@@ -465,9 +479,9 @@
         $(`#${thread.Id}`).append(`<p>${thread.Body}</p>`);
         $(`#${thread.Id}`).append(`<p class="Author">Post By: ${thread.Author}</p>`);
         $(`#${thread.Id}`).append(`<p class="btn netvote"> 0 </p>`);
-        $(`#${thread.Id}`).append('<button type="button" class="threadOpt">↑</button>');
-        $(`#${thread.Id}`).append('<button type="button" class="threadOpt">↓</button>');
-        $(`#${thread.Id}`).append('<button type="button" class="threadOpt">…</button>');
+        $(`#${thread.Id}`).append(`<button type="button" id="${thread.Id}Up" class="threadOpt">↑</button>`);
+        $(`#${thread.Id}`).append(`<button type="button" id="${thread.Id}Down" class="threadOpt">↓</button>`);
+        $(`#${thread.Id}`).append(`<button type="button" class="threadOpt">…</button>`);
         $(`#${thread.Id}`).append(`<button class="btn ccButton" id="${thread.Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
         
         $(`#${thread.Id}Reply`).click(function(){
@@ -477,6 +491,15 @@
                 socket.emit('CreateReply', {ParentId: thread.Id, Author: `TesterA`, Body: body, ParentAuthor: thread.Author}); //change STAR_
               });
         });
+        
+        $(`#${thread.Id}Up`).click(function(){
+          socket.emit('Vote', {User: "Tester", IsUpvote: true, PostId: thread.Id}); //STAR_
+        });
+
+        $(`#${thread.Id}Down`).click(function(){
+          socket.emit('Vote', {User: "Tester", IsUpvote: false, PostId: thread.Id}); //STAR_
+        });
+        
         
 
         //console.log(replies.length);
@@ -524,6 +547,19 @@
 
       socket.on('Vote', function(msg) {
         // msg == true
+        alert(ThreadOrComment);
+        if(ThreadOrComment == 1){
+          $("#Threads div").remove();
+          socket.emit('GetAllThreads');
+        } else if(ThreadOrComment == 2){
+          let comment = msg;
+          alert(comment);
+         /* $('#modalFooterArea button').remove();
+          $("#Threads div").remove();
+          $('#modalFooterArea').append(`<button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>`);
+          socket.emit('GetNestedThread', {Id: comment.Id}); */
+        }
+        
       });
 
       socket.on('EditPost', function(msg) {
@@ -535,10 +571,10 @@
 
       socket.on('CreateReply', function(msg) {
         let comment = msg;
-          $('#modalFooterArea button').remove();
-          $("#Threads div").remove();
-          $('#modalFooterArea').append(`<button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>`);
-          socket.emit('GetNestedThread', {Id: comment.ParentId});
+        $('#modalFooterArea button').remove();
+        $("#Threads div").remove();
+        $('#modalFooterArea').append(`<button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>`);
+        socket.emit('GetNestedThread', {Id: comment.ParentId});
       });
 
       //Whenever the post button is pressed to post a new Thread
