@@ -256,6 +256,16 @@
 
         <div class="row justify-content-end">
             <div class="col-md-4">
+              <button class="btn btn-secondary float-end" type="button" id="sortByRatingButton">
+                Sort By Rating
+              </button>
+            </div>
+            <div class="col-md-4">
+              <button class="btn btn-secondary float-end" type="button" id="sortByTimeButton">
+                Sort By Time
+              </button>
+            </div>
+           <div class="col-md-4">
                 <button class="btn btn-secondary float-end" type="button" id="backButton">
                     Back
                 </button>
@@ -429,6 +439,8 @@
             $("#Threads div").remove();
             $("#ctButton").show();
             $('#backButton').hide();
+            $('#sortByRatingButton').show();
+            $('#sortByTimeButton').show();
             //sets the response to the handle to a more readable variable
             let threads = msg;
 
@@ -454,6 +466,12 @@
                 else {
                     $(`#${threads[i].Id}Delete`).hide();
                     $(`#${threads[i].Id}Edit`).hide();
+                }
+                if(UserInformation.Permission == "admin") {
+                  $(`#${threads[i].Id}Endorse`).show();
+                }
+                else {
+                  $(`#${threads[i].Id}Endorse`).hide();
                 }
                 $(`#${threads[i].Id}`).append(`<p id="${threads[i].Id}status"></p>`);
 
@@ -513,6 +531,8 @@
             $("#Threads div").remove();
             $("#ctButton").hide();
             $('#backButton').show();
+            $('#sortByRatingButton').hide();
+            $('#sortByTimeButton').hide();
 
             let thread = msg;
             let replies = thread.Replies;
@@ -570,6 +590,98 @@
             }
 
         });
+
+      socket.on('GetSortedThreads', function (msg) {
+        ThreadOrComment = 1;
+        //clears current threads
+        $("#Threads div").remove();
+        $("#ctButton").show();
+        $('#backButton').hide();
+        $('#sortByRatingButton').show();
+        $('#sortByTimeButton').show();
+        //sets the response to the handle to a more readable variable
+        let threads = msg;
+
+        console.log(threads)
+        
+        //Creates a new Thread element onto the page
+        for(let i = 0; i < threads.length; ++i)
+        {
+            $("#Threads").append(`<div id=${threads[i].Id} class="threads commentThread col-md-8"></div>`);
+            $(`#${threads[i].Id}`).append(`<h6>Post by: ${threads[i].Author}<h6>`);
+            $(`#${threads[i].Id}`).append('<hr>');
+            $(`#${threads[i].Id}`).append(`<h6 id="${threads[i].Id}Title" class="threadTitle">${threads[i].Title}</h6>`);
+            $(`#${threads[i].Id}`).append(`<button type="button" id="" class="threadOpt">${threads[i].Upvoters.length - threads[i].Downvoters.length}</button>`);
+            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Up" class="threadOpt">↑</button>`);
+            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Down" class="threadOpt">↓</button>`);
+            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
+            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
+            $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Endorse" class="threadOpt">Endorse</button>`);
+            //hides options based on user permission unless user is the author.
+            if (UserInformation.Permission == "admin" || UserInformation.Name == threads[i].Author) {
+                $(`#${threads[i].Id}Delete`).show();
+                $(`#${threads[i].Id}Edit`).show();
+            }
+            else{
+                $(`#${threads[i].Id}Delete`).hide();
+                $(`#${threads[i].Id}Edit`).hide();
+            }
+            if(UserInformation.Permission == "admin") {
+                $(`#${threads[i].Id}Endorse`).show();
+            }
+            else {
+              $(`#${threads[i].Id}Endorse`).hide();
+            }
+
+            $(`#${threads[i].Id}`).append(`<p id="${threads[i].Id}status"></p>`);
+            
+            if(threads[i].Endorsed){
+              //alert(threads[i].Endorsed);
+              $(`#${threads[i].Id}status`).append("| Endorsed |");
+            }
+
+            if(threads[i].Edited){
+              //alert(threads[i].Endorsed);
+              $(`#${threads[i].Id}status`).append(" Edited");
+            }
+
+            $(`#${threads[i].Id}Up`).click(function(){
+              socket.emit('Vote', {User: UserInformation.Name, IsUpvote: true, PostId: threads[i].Id}); 
+            });
+
+            $(`#${threads[i].Id}Down`).click(function(){
+              socket.emit('Vote', {User: UserInformation.Name, IsUpvote: false, PostId: threads[i].Id}); 
+            });
+
+            $(`#${threads[i].Id}Endorse`).click(function(){
+              socket.emit("ToggleEndorseStatus", {Id: threads[i].Id});
+            });
+
+            $(`#${threads[i].Id}Title`).click(function(){
+              //alert("worked");
+              socket.emit('GetNestedThread', {Id: threads[i].Id});
+            });
+            
+            $(`#${threads[i].Id}Delete`).click(function(){
+              socket.emit('DeletePost', {User: UserInformation, PostId: threads[i].Id}); 
+            });
+
+            $(`#${threads[i].Id}Edit`).click(function(){
+              $('#EditThread').click(function(){
+                let title = $('#EditThreadTitle').val();
+                let body = $('#EditThreadBody').val();
+                //console.log(title, body);
+                socket.emit('EditPost', {PostId: threads[i].Id, newBody: body, NewTitle: title});
+              });
+            });
+        }
+      });
+
+
+      socket.on('GetNestedDiscussionBoard', function(msg) {
+        let db = msg;
+        console.log(db);
+      });
 
         socket.on('CreateThread', function (msg) {
             let newThreadId = msg;
@@ -639,6 +751,21 @@
             socket.emit('GetAllThreads');
         });
 
+      $('#sortByRatingButton').click(function(){
+        $("#Threads div").remove();
+        socket.emit('GetSortedThreads', 'Rating');
+      });
+
+      $('#sortByTimeButton').click(function(){
+        $("#Threads div").remove();
+        socket.emit('GetSortedThreads', 'TimeStamp');
+      });
+
+      socket.on('ToggleEndorseStatus', function(msg) {
+        $("#Threads div").remove();
+        socket.emit('GetAllThreads');
+      });
+      
     </script>
 </body>
 
