@@ -167,7 +167,7 @@ function EditPost(DiscussionBoard, PostId, newBody, newTitle = null) {
 function DeletePost(DiscussionBoard, User, PostId) {
     // user privilege verification
     privileged = false;
-    if(User === "admin" || User === DiscussionBoard.PostList[PostId].Author)
+    if(User.Permission === "admin" || User.Name === DiscussionBoard.PostList[PostId].Author)
     {
         privileged = true;
     }
