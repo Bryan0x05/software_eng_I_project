@@ -383,6 +383,7 @@
         console.log("Student button pressed");
         UserInformation.Name = $("input[id=LoginUsername]").val();
         UserInformation.Permission = "student";
+        //this updates the page to reflect the visibility changes caused by different level of user permissions
         socket.emit('GetAllThreads');
 
     });
@@ -390,6 +391,7 @@
         console.log("Instructor button pressed");
         UserInformation.Name = $("input[id=LoginUsername]").val();
         UserInformation.Permission = "admin";
+        //this updates the page to reflect the visibility changes caused by different level of user permissions
         socket.emit('GetAllThreads');
 
     });
@@ -423,6 +425,7 @@
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
             $(`#${threads[i].Id}`).append('<button type="button" class="threadOpt">…</button>');
+            //hides options based on user permission unless user is the author.
             if (UserInformation.Permission == "admin" || UserInformation.Name == threads[i].Author) {
                 $(`#${threads[i].Id}Delete`).show();
                 $(`#${threads[i].Id}Edit`).show();
