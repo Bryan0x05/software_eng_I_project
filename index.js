@@ -44,10 +44,11 @@ class Thread {
 }
 
 class Comment {
-    constructor(Author, Body, ParentId) {
+    constructor(Author, Body, ParentId, ParentAuthor) {
         this.Author = Author;
         this.Body = Body;
         this.ParentId = ParentId;
+        this.ParentAuthor = ParentAuthor,
         this.TimeStamp = Date.now();
         this.Id = "" + this.Author + "_" + this.TimeStamp;
         this.Upvoters = [];
@@ -73,7 +74,7 @@ function CreateThread(DiscussionBoard, Author, Title, Body, Tag) {
 // and add it to the json database.
 function CreateReply(DiscussionBoard, ParentId, Author, Body, ParentAuthor) {
     DiscussionBoard.refresh();
-    let newReply = new Comment(Author, "@" + ParentAuthor + " " + Body, ParentId);
+    let newReply = new Comment(Author, "@" + ParentAuthor + " " + Body, ParentId, ParentAuthor);
     // add new comment to discussion board
     DiscussionBoard.PostList[newReply.Id] = newReply;
     // add id to replies list of parent
