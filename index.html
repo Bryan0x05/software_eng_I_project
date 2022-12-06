@@ -619,6 +619,7 @@
           $(`#${replies[i].Id}Reply`).click(function(){
               $('#PostNewComment').click(function(){
                 let body = $('#NewCommentBody').val();
+                $('#NewCommentBody').val("");
                 //console.log(title, body);
                 socket.emit('CreateReply', {ParentId: thread.Id, Author: `${UserInformation.Name}`, Body: body, ParentAuthor: replies[i].Author}); //change STAR_
                 $('#PostNewComment').click(null);
