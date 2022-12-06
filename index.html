@@ -12,6 +12,7 @@
     <style>
         body {
             background-color: #0D1B2A;
+            color:white;
         }
 
 
@@ -23,7 +24,7 @@
         h1 {
             text-align: center;
             background-color: #1B263B;
-            color: #E0E1DD;
+            color: white;
             width: fit-content;
             padding: 5px;
             margin: auto;
@@ -32,24 +33,25 @@
 
         .threadTitle {
             font-size: 2em;
-            color: #E0E1DD;
+            color: white;
         }
 
         .threads {
-            background-color: #778DA9;
+            background-color: #415A77;
             border-radius: 20px;
             padding: 1%;
             margin: 15px;
-            border: 3px solid black;
+            border: 3px solid #778DA9;
         }
 
-        #ctButton {
+        #backButton,#sortByTimeButton, #sortByRatingButton, #ctButton {
             padding: 10px;
             border-radius: 20px;
             margin-left: 15px;
             background-color: #1B263B;
             color: #E0E1DD;
             border: 2px solid #778DA9;
+            display: inline-flex;
         }
 
         .threads h6 {
@@ -60,7 +62,7 @@
         .threadOpt {
             background-color: #1B263B;
             border-color: #1B263B;
-            color: #E0E1DD;
+            color: white;
         }
 
         /* Login Modal */
@@ -73,13 +75,6 @@
 
         .login-username::placeholder {
             color: lightgray;
-        }
-
-        .login-password {
-            background-color: #778DA9;
-            border-color: #415A77;
-            width: 100%;
-            color: #E0E1DD;
         }
 
         .login-password::placeholder {
@@ -125,7 +120,7 @@
 
         .Posts {
             background-color: #415A77;
-            color: #E0E1DD;
+            color: white;
             margin-bottom: 2%;
             border-radius: 8px;
             padding: 1%;
@@ -194,6 +189,7 @@
         #topbar {
             font-family: "Open Sans", sans-serif;
             background-color: white;
+            color: black;
             position: sticky;
             top: 0;
             z-index: 1;
@@ -202,6 +198,7 @@
         #LoginPageModal {
             display: none;
         }
+   
     </style>
     
     <title>Discussion Board Prototype UI</title>
@@ -258,29 +255,29 @@
     <div class="container">
         <h1>Discussion Board Prototype</h1> <br>
     
-        <div class="row justify-content-end">
-            <div class="col-md-4">
-                <button class="btn btn-secondary float-end" type="button" id="sortByRatingButton">
+        <div class="row">
+            <div class="col-md-2">
+                <button class="btn btn-secondary float-end" type="button" id="backButton">
+                    Back
+                </button>
+            </div>
+        
+            <div class="col-md-3">
+                <button class="btn btn-secondary" type="button" id="sortByRatingButton">
                     Sort By Rating
                 </button>
             </div>
-            <div class="col-md-4">
-                <button class="btn btn-secondary float-end" type="button" id="sortByTimeButton">
+            <div class="col-md-3">
+                <button class="btn btn-secondary" type="button" id="sortByTimeButton">
                     Sort By Time
                 </button>
             </div>
-           <div class="col-md-4">
-                <button class="btn btn-secondary float-end" type="button" id="backButton">
-                  Back
+            <div class="col-md-2">
+                <!--Thread modal button-->
+                <button class="btn" type="button" id="ctButton" data-bs-toggle="modal" data-bs-target="#CreateThreadModal">
+                    + Create Thread
                 </button>
             </div>
-            <div class="col-md-4">
-              <!--Thread modal button-->
-                <button class = "btn" type="button" id="ctButton" data-bs-toggle="modal" data-bs-target="#CreateThreadModal">
-                  + Create Thread
-                </button>
-            </div>
-        </div>
         <div id="Threads" class="row justify-content-center">
          <!-- <div class="threads col-md-8">
               <h6>Example Author</h6>
@@ -383,7 +380,7 @@
             </div>
         </div>
     </div>
-    <!--login modal-->>
+    <!--login modal-->
 </div>
     <!--Bootstrap JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js"
