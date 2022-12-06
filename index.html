@@ -370,6 +370,7 @@
     <script src="/socket.io/socket.io.js"></script>
     <!--Cilent Javascript-->
     <script>
+      var global_EDIT_ID = ""
       var socket = io();
       var UserInformation = {
         Name: "username",
@@ -472,16 +473,16 @@
             });
 
             $(`#${threads[i].Id}Edit`).click(function(){
-              $('#EditThread').click(function(){
-                let title = $('#EditThreadTitle').val();
-                let body = $('#EditThreadBody').val();
-                //console.log(title, body);
-                socket.emit('EditPost', {PostId: threads[i].Id, newBody: body, NewTitle: title});
-              });
+              global_EDIT_ID = threads[i].Id
             });
         }
       });
-
+      $('#EditThread').click(function(){
+                let title = $('#EditThreadTitle').val();
+                let body = $('#EditThreadBody').val();
+                //console.log(title, body);
+                socket.emit('EditPost', {PostId: global_EDIT_ID, newBody: body, NewTitle: title});
+              });
 
       socket.on('GetNestedDiscussionBoard', function(msg) {
         let db = msg;
@@ -583,12 +584,7 @@
           });
 
           $(`#${replies[i].Id}Edit`).click(function(){
-              $('#EditThread').click(function(){
-                let title = $('#EditThreadTitle').val();
-                let body = $('#EditThreadBody').val();
-                //console.log(title, body);
-                socket.emit('EditPost', {PostId: replies[i].Id, newBody: ((replies[i].Body).split(' '))[0] + ' ' + body, NewTitle: ""});
-              });
+              global_EDIT_ID = replies[i].Id;
           });
 
 
