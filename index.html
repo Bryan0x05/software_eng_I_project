@@ -473,16 +473,20 @@
             });
 
             $(`#${threads[i].Id}Edit`).click(function(){
-              global_EDIT_ID = threads[i].Id
+              global_EDIT_ID = threads[i];
             });
         }
       });
       $('#EditThread').click(function(){
-                let title = $('#EditThreadTitle').val();
-                let body = $('#EditThreadBody').val();
-                //console.log(title, body);
-                socket.emit('EditPost', {PostId: global_EDIT_ID, newBody: body, NewTitle: title});
-              });
+        let title = $('#EditThreadTitle').val();
+        let body = $('#EditThreadBody').val();
+        let Post = global_EDIT_ID;
+        if (!Post.IsComment) {
+          socket.emit('EditPost', {PostId: Post.Id, newBody: body, NewTitle: title});
+        } else if (Post.IsComment) {
+          socket.emit('EditPost', {PostId: Post.Id, newBody: Post.ParentAuthor + ' ' + body, NewTitle: title});
+        }
+      });
 
       socket.on('GetNestedDiscussionBoard', function(msg) {
         let db = msg;
@@ -584,10 +588,8 @@
           });
 
           $(`#${replies[i].Id}Edit`).click(function(){
-              global_EDIT_ID = replies[i].Id;
+              global_EDIT_ID = replies[i];
           });
-
-
         }
 
       });
