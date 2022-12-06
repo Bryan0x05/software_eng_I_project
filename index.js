@@ -212,23 +212,26 @@ function GetNestedThread(DiscussionBoard, PostId) {
     return parent;
 }
 
-function SortByTime(DiscussionBoard)  {
-    DiscussionBoard.refresh();
-    let tempArr = [];
-    for(var post in DiscussionBoard.PostList) {
-        tempArr.push([post, DiscussionBoard.PostList[post]]);
-    }
+// Takes an array of Threads, Returns an array of sorted threads based on the sorting metric of type
+function GetSortedThreads(Threads, Type) {
+    var tempArr = Threads.slice(0, Threads.length);
 
-    tempArr.sort(function(a, b){return a[1].TimeStamp - b[1].TimeStamp});
+    // Sorts discussion board posts based on type of sort
+    tempArr.sort(function (a, b) {
+        // Endorsed posts go first
+        if (a.Endorsed && !b.Endorsed) return -1;
+        else if (b.Endorsed && !a.Endorsed) return 1;
 
-    let sorted = {}
-    tempArr.forEach(function(elem){
-        sorted[elem[0]] = elem[1];
+        // If neither or both posts are endorsed, sort based on type
+        if (Type === 'TimeStamp') {
+            return b[Type] - a[Type];
+        }
+        else if (Type === 'Rating') {
+            return (b.Upvoters.length - b.Downvoters.length) - (a.Upvoters.length - a.Downvoters.length);
+        }
     });
-    return sorted;
+    return tempArr;
 }; 
-
-
 // returns a list of all threads
 // If you want a particular thread and it's nested comments,
 //      pass the id of that thrad to GetNestedThread
@@ -309,7 +312,10 @@ io.on('connection', (socket) => {
         let id = EditPost(db, msg.PostId, msg.newBody, msg.NewTitle);
         io.emit('EditPost', GetNestedThread(db, id));
     })
-
+    // expects string
+    socket.on('GetSortedThreads', (msg) => {
+        io.emit('GetSortedThreads', GetSortedThreads(GetAllThreads(db), msg));
+    });
     // expects {User: string, PostId: string}
     // sending user as "admin" will allow deletion of anything-
     socket.on('DeletePost', (msg) => {

@@ -1,216 +1,229 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
-<style>
-    body{
-    background-color: #0D1B2A;
-    }
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #0D1B2A;
+        }
 
 
-.container {
-    background-color: #0D1B2A;
-    min-height: 700px;
-    }
+        .container {
+            background-color: #0D1B2A;
+            min-height: 700px;
+        }
 
-    h1{
-    text-align: center;
-    background-color: #1B263B;
-    color: #E0E1DD;
-    width: fit-content;
-    padding: 5px;
-    margin: auto;
-    border-radius: 5px;
-    }
+        h1 {
+            text-align: center;
+            background-color: #1B263B;
+            color: #E0E1DD;
+            width: fit-content;
+            padding: 5px;
+            margin: auto;
+            border-radius: 5px;
+        }
 
-    .threadTitle {
-    font-size: 2em;
-    color: #E0E1DD;
-    }
+        .threadTitle {
+            font-size: 2em;
+            color: #E0E1DD;
+        }
 
-    .threads{
-    background-color: #778DA9;
-    border-radius: 20px;
-    padding: 1%;
-    margin: 15px;
-    border: 3px solid black;
-    }
+        .threads {
+            background-color: #778DA9;
+            border-radius: 20px;
+            padding: 1%;
+            margin: 15px;
+            border: 3px solid black;
+        }
 
-    #ctButton {
-    padding: 10px;
-    border-radius: 20px;
-    margin-left: 15px;
-    background-color:#1B263B;
-    color: #E0E1DD;
-    border: 2px solid #778DA9;
-    }
+        #ctButton {
+            padding: 10px;
+            border-radius: 20px;
+            margin-left: 15px;
+            background-color: #1B263B;
+            color: #E0E1DD;
+            border: 2px solid #778DA9;
+        }
 
-    .threads h6{
-    margin-left: 2%;
-    color: white;
-    }
+        .threads h6 {
+            margin-left: 2%;
+            color: white;
+        }
 
-    .threadOpt{
-    background-color: #1B263B;
-        border-color: #1B263B;
-        color: #E0E1DD;
-    }
+        .threadOpt {
+            background-color: #1B263B;
+            border-color: #1B263B;
+            color: #E0E1DD;
+        }
 
-    /* Login Modal */
-    .login-username {
-    background-color: #778DA9;
-    border-color: #415A77;
-    width: 100%;
-    color: #E0E1DD;
-    }
+        /* Login Modal */
+        .login-username {
+            background-color: #778DA9;
+            border-color: #415A77;
+            width: 100%;
+            color: #E0E1DD;
+        }
 
-    .login-username::placeholder {
-    color: lightgray;
-    }
+        .login-username::placeholder {
+            color: lightgray;
+        }
 
-    .login-password {
-    background-color: #778DA9;
-    border-color: #415A77;
-    width: 100%;
-    color: #E0E1DD;
-    }
+        .login-password {
+            background-color: #778DA9;
+            border-color: #415A77;
+            width: 100%;
+            color: #E0E1DD;
+        }
 
-    .login-password::placeholder {
-    color: lightgray;
-    }
+        .login-password::placeholder {
+            color: lightgray;
+        }
 
-    /* Thread Modal */
-    .modal-content
-    {
-    background-color:#415A77;
-    color:#E0E1DD;
-    }
-    .create-thread-title{
-    background-color: #778DA9;
-    border-color: #1B263B;
-    width: 100%;
-    height: 30px;
-    color: #E0E1DD;
-    resize: none;
-    }
+        /* Thread Modal */
+        .modal-content {
+            background-color: #415A77;
+            color: #E0E1DD;
+        }
 
-    .create-thread-body{
-    background-color: #778DA9;
-    border-color: #1B263B;
-    width: 100%;
-    height: 300px;
-    color: #E0E1DD;
-    resize: none;
-    }
+        .create-thread-title {
+            background-color: #778DA9;
+            border-color: #1B263B;
+            width: 100%;
+            height: 30px;
+            color: #E0E1DD;
+            resize: none;
+        }
 
-    .create-thread-body::placeholder {
-    color: #E0E1DD;
-    }
+        .create-thread-body {
+            background-color: #778DA9;
+            border-color: #1B263B;
+            width: 100%;
+            height: 300px;
+            color: #E0E1DD;
+            resize: none;
+        }
 
-    .create-thread-title::placeholder {
-    color: #E0E1DD;
-    }
+        .create-thread-body::placeholder {
+            color: #E0E1DD;
+        }
 
-    .delete-message{
-    background-color:#415A77;
+        .create-thread-title::placeholder {
+            color: #E0E1DD;
+        }
 
-    }
+        .delete-message {
+            background-color: #415A77;
 
-    .Posts {
-    background-color: #415A77;
-    color:#E0E1DD;
-    margin-bottom: 2%;
-    border-radius: 8px;
-    padding: 1%;
-    border: 3px solid #778DA9;
-    }
+        }
 
-    .Author {
-    background-color: #1B263B;
-    border-radius: 3px;
-    width: fit-content;
-    padding: 2px;
-    border: 1px solid #778DA9;
-    display: inline-block;
-    }
+        .Posts {
+            background-color: #415A77;
+            color: #E0E1DD;
+            margin-bottom: 2%;
+            border-radius: 8px;
+            padding: 1%;
+            border: 3px solid #778DA9;
+        }
 
-    h5 {
-    border-bottom: 1px solid black;
-    margin-bottom: 10px;
-    }
+        .Author {
+            background-color: #1B263B;
+            border-radius: 3px;
+            width: fit-content;
+            padding: 2px;
+            border: 1px solid #778DA9;
+            display: inline-block;
+        }
 
-    .netvote{
-    display:inline-block;
-    background-color: #1B263B;
-    border-color: #1B263B;
-    color: #E0E1DD;
-    padding: 2px;
-    border-radius: 3px;
-    margin-left: 2px;
-    margin-top: 10px;
-    }
+        h5 {
+            border-bottom: 1px solid black;
+            margin-bottom: 10px;
+        }
 
-    .ccButton{
-    padding: 10px;
-    border-radius: 10px;
-    margin-left: 15px;
-    background-color: #1B263B;
-    color: #E0E1DD;
-    border: 2px solid #415A77;
-    display: inline-block;
-    }
+        .netvote {
+            display: inline-block;
+            background-color: #1B263B;
+            border-color: #1B263B;
+            color: #E0E1DD;
+            padding: 2px;
+            border-radius: 3px;
+            margin-left: 2px;
+            margin-top: 10px;
+        }
 
-    .commentThread {
-    margin-top: 2%;
-    }
-/*
-#sidebar{
-    position: fixed;
-    font-family: "Open Sans",sans-serif;
-    background-color: #333333;
-    color: white;
-    padding-top: 30px;
-    padding-left: 5px;
-    padding-right: 5px;
-    width: 10%;
-    height: 100vh;
-    z-index: -1;
-}
-.sidebar-dividers{
-    padding: 1px;
-    
-}
-#topbar{
-    font-family: "Open Sans",sans-serif;
-}*/
-#LoginPageModal{
-    display: none;
-}
+        .ccButton {
+            padding: 10px;
+            border-radius: 10px;
+            margin-left: 15px;
+            background-color: #1B263B;
+            color: #E0E1DD;
+            border: 2px solid #415A77;
+            display: inline-block;
+        }
+
+        .commentThread {
+            margin-top: 2%;
+        }
+
+        #sidebar {
+            position: fixed;
+            font-family: "Open Sans", sans-serif;
+            background-color: #333333;
+            color: white;
+            margin-top: 24px;
+            padding-top: 30px;
+            padding-left: 5px;
+            padding-right: 5px;
+            width: 10%;
+            height: 100vh;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .sidebar-dividers {
+            padding: 1px;
+
+        }
+
+        #topbar {
+            font-family: "Open Sans", sans-serif;
+            background-color: white;
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        #LoginPageModal {
+            display: none;
+        }
     </style>
-  
-    <title>Discussion Board Prototype</title>
-  </head>
-  <body>
-    <!--
-    <div id = "sidebar">
-        <p class = "fw-bold">COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
-        <p>
-            Home page<hr class = "sidebar-dividers">
-            Announcements<br><br>
-            Discusson Board<hr class = "sidebar-dividers">
-            Gradebook
-        </p>
-    </div>
-
-    <div class = "bg-white fw-bold" id="topbar">
-        <p> COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
-    </div>
-   -->
+    
+    <title>Discussion Board Prototype UI</title>
+    </head>
+    
+    <body>
+    
+        <div id="sidebar">
+            <p class="fw-bold">COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
+            <p>
+                Home page
+                <hr class="sidebar-dividers">
+                Announcements<br><br>
+                Discusson Board
+                <hr class="sidebar-dividers">
+                Gradebook
+            </p>
+        </div>
+    
+        <div class="fw-bold" id="topbar">
+            <p> COMP 4110 p 1 201 Software Engineering I 2022 Fall</p>
+        </div>
     <!--Meta buttons-->
     <button id = "logoutbutton" class = "btn btn-secondary float-end" data-bs-toggle="modal" data-bs-target="#LoginPageModal">Logout</button>
     <!--Thread Creation Modal -->
@@ -246,6 +259,16 @@
         <h1>Discussion Board Prototype</h1> <br>
     
         <div class="row justify-content-end">
+            <div class="col-md-4">
+                <button class="btn btn-secondary float-end" type="button" id="sortByRatingButton">
+                    Sort By Rating
+                </button>
+            </div>
+            <div class="col-md-4">
+                <button class="btn btn-secondary float-end" type="button" id="sortByTimeButton">
+                    Sort By Time
+                </button>
+            </div>
            <div class="col-md-4">
                 <button class="btn btn-secondary float-end" type="button" id="backButton">
                   Back
@@ -412,6 +435,8 @@
         $("#Threads div").remove();
         $("#ctButton").show();
         $('#backButton').hide();
+        $('#sortByRatingButton').show();
+        $('#sortByTimeButton').show();
         //sets the response to the handle to a more readable variable
         let threads = msg;
 
@@ -512,7 +537,8 @@
         $("#Threads div").remove();
         $("#ctButton").hide();
         $('#backButton').show();
-
+          $('#sortByRatingButton').hide();
+          $('#sortByTimeButton').hide();
         let thread = msg;
         let replies = thread.Replies;
         //console.log(thread);
@@ -625,7 +651,87 @@
         }
 
       });
+       socket.on('GetSortedThreads', function (msg) {
+            ThreadOrComment = 1;
+            //clears current threads
+            $("#Threads div").remove();
+            $("#ctButton").show();
+            $('#backButton').hide();
+            $('#sortByRatingButton').show();
+            $('#sortByTimeButton').show();
+            //sets the response to the handle to a more readable variable
+            let threads = msg;
 
+            console.log(threads)
+
+            //Creates a new Thread element onto the page
+            for (let i = 0; i < threads.length; ++i) {
+                $("#Threads").append(`<div id=${threads[i].Id} class="threads commentThread col-md-8"></div>`);
+                $(`#${threads[i].Id}`).append(`<h6>Post by: ${threads[i].Author}<h6>`);
+                $(`#${threads[i].Id}`).append('<hr>');
+                $(`#${threads[i].Id}`).append(`<h6 id="${threads[i].Id}Title" class="threadTitle">${threads[i].Title}</h6>`);
+                $(`#${threads[i].Id}`).append(`<button type="button" id="" class="threadOpt">${threads[i].Upvoters.length - threads[i].Downvoters.length}</button>`);
+                $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Up" class="threadOpt">&#128077;</button>`);
+                $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Down" class="threadOpt">&#128078;</button>`);
+                $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
+                $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
+                $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Endorse" class="threadOpt">Endorse</button>`);
+                $(`#${threads[i].Id}`).append(`<p id="${threads[i].Id}Tag" style="display: inline-block" class="threadOpt">Tag: ${threads[i].Tag}</p>`);
+                //hides options based on user permission unless user is the author.
+                if (UserInformation.Permission == "admin" || UserInformation.Name == threads[i].Author) {
+                    $(`#${threads[i].Id}Delete`).show();
+                    $(`#${threads[i].Id}Edit`).show();
+                }
+                else {
+                    $(`#${threads[i].Id}Delete`).hide();
+                    $(`#${threads[i].Id}Edit`).hide();
+                }
+                if (UserInformation.Permission == "admin") {
+                    $(`#${threads[i].Id}Endorse`).show();
+                }
+                else {
+                    $(`#${threads[i].Id}Endorse`).hide();
+                }
+
+                $(`#${threads[i].Id}`).append(`<p id="${threads[i].Id}status"></p>`);
+
+                if (threads[i].Endorsed) {
+                    //alert(threads[i].Endorsed);
+                    $(`#${threads[i].Id}status`).append("| Endorsed |");
+                }
+
+                if (threads[i].Edited) {
+                    //alert(threads[i].Endorsed);
+                    $(`#${threads[i].Id}status`).append(" Edited");
+                }
+
+                $(`#${threads[i].Id}Up`).click(function () {
+                    socket.emit('Vote', { User: UserInformation.Name, IsUpvote: true, PostId: threads[i].Id });
+                });
+
+                $(`#${threads[i].Id}Down`).click(function () {
+                    socket.emit('Vote', { User: UserInformation.Name, IsUpvote: false, PostId: threads[i].Id });
+                });
+
+                $(`#${threads[i].Id}Endorse`).click(function () {
+                    socket.emit("ToggleEndorseStatus", { Id: threads[i].Id });
+                });
+
+                $(`#${threads[i].Id}Title`).click(function () {
+                    //alert("worked");
+                    socket.emit('GetNestedThread', { Id: threads[i].Id });
+                });
+
+                $(`#${threads[i].Id}Delete`).click(function () {
+                    socket.emit('DeletePost', { User: UserInformation, PostId: threads[i].Id });
+                });
+                $(`#${threads[i].Id}Edit`).click(function () {
+                    $('#EditThreadTitle').show();
+                    global_EDIT_ID = threads[i];
+                });
+            }
+        });
+        
       socket.on('CreateThread', function(msg) {
         let newThreadId = msg;
         console.log(msg);
@@ -691,30 +797,38 @@
       });
 
       //Whenever the post button is pressed to post a new Thread
-      $('#PostNewThread').click(function(){
-        let title = $('#NewThreadTitle').val();
-        let body = $('#NewThreadBody').val();
-        //console.log(title, body);
-        socket.emit('CreateThread', {Author: UserInformation.Name , Title: title, Body: body, Tag: document.querySelector('#tagSelect').value}); 
-      });
+      $('#PostNewThread').click(function () {
+            let title = $('#NewThreadTitle').val();
+            let body = $('#NewThreadBody').val();
+            //console.log(title, body);
+            socket.emit('CreateThread', { Author: UserInformation.Name, Title: title, Body: body, Tag: document.querySelector('#tagSelect').value });
+        });
 
-      $('#backButton').click(function(){
-        $("#Threads div").remove();
-        socket.emit('GetAllThreads');
-      });
+        $('#backButton').click(function () {
+            $("#Threads div").remove();
+            socket.emit('GetAllThreads');
+        });
+        $('#sortByRatingButton').click(function () {
+            $("#Threads div").remove();
+            socket.emit('GetSortedThreads', 'Rating');
+        });
 
-      socket.on('ToggleEndorseStatus', function(msg) {
-        if(ThreadOrComment == 1){
-          $("#Threads div").remove();
-          socket.emit('GetAllThreads');
-        } else if(ThreadOrComment == 2){
-          let comment = msg;
-          $('#modalFooterArea button').remove();
-          $("#Threads div").remove();
-          $('#modalFooterArea').append(`<button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>`);
-          socket.emit('GetNestedThread', {Id: comment.Id});
-        }
-      });
+        $('#sortByTimeButton').click(function () {
+            $("#Threads div").remove();
+            socket.emit('GetSortedThreads', 'TimeStamp');
+        });
+        socket.on('ToggleEndorseStatus', function (msg) {
+            if (ThreadOrComment == 1) {
+                $("#Threads div").remove();
+                socket.emit('GetAllThreads');
+            } else if (ThreadOrComment == 2) {
+                let comment = msg;
+                $('#modalFooterArea button').remove();
+                $("#Threads div").remove();
+                $('#modalFooterArea').append(`<button type="button" data-bs-dismiss="modal" id="PostNewComment" class="btn btn-primary">Post</button>`);
+                socket.emit('GetNestedThread', { Id: comment.Id });
+            }
+        });
       
     </script>
   </body>
