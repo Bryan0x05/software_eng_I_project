@@ -382,6 +382,7 @@
     $("#StudentButton").click(function () {
         console.log("Student button pressed");
         UserInformation.Name = $("input[id=LoginUsername]").val();
+        $("input[id=LoginUsername]").val("");
         UserInformation.Permission = "student";
         //this updates the page to reflect the visibility changes caused by different level of user permissions
         socket.emit('GetAllThreads');
@@ -390,6 +391,7 @@
     $("#InstructorButton").click(function () {
         console.log("Instructor button pressed");
         UserInformation.Name = $("input[id=LoginUsername]").val();
+        $("input[id=LoginUsername]").val("");
         UserInformation.Permission = "admin";
         //this updates the page to reflect the visibility changes caused by different level of user permissions
         socket.emit('GetAllThreads');
@@ -434,10 +436,20 @@
             if (UserInformation.Permission == "admin" || UserInformation.Name == threads[i].Author) {
                 $(`#${threads[i].Id}Delete`).show();
                 $(`#${threads[i].Id}Edit`).show();
+                if(UserInformation.Permission == "admin")
+                {
+                    $(`#${threads[i].Id}Endorse`).show();
+                }
+                else
+                {
+                    $(`#${threads[i].Id}Endorse`).hide();
+                }
+
             }
             else{
                 $(`#${threads[i].Id}Delete`).hide();
                 $(`#${threads[i].Id}Edit`).hide();
+                $(`#${threads[i].Id}Endorse`).hide();
             }
             $(`#${threads[i].Id}`).append(`<p id="${threads[i].Id}status"></p>`);
             
@@ -552,7 +564,25 @@
           $(`#${replies[i].Id}`).append(`<button type="button" id="${replies[i].Id}Endorse" class="threadOpt">Endorse</button>`);
           $(`#${replies[i].Id}`).append(`<button class="btn ccButton" id="${replies[i].Id}Reply" type="button" data-bs-toggle="modal" data-bs-target="#CreateCommentModal">⤷</button>`);
           $(`#${replies[i].Id}`).append(`<p id="${replies[i].Id}status"></p>`);
+            
+            if (UserInformation.Permission == "admin" || UserInformation.Name == replies[i].Author) {
+                $(`#${replies[i].Id}Delete`).show();
+                $(`#${replies[i].Id}Edit`).show();
+                if(UserInformation.Permission == "admin")
+                {
+                    $(`#${replies[i].Id}Endorse`).show();
+                }
+                else
+                {
+                    $(`#${replies[i].Id}Endorse`).hide();
+                }
+            }
+            else {
+                $(`#${replies[i].Id}Delete`).hide();
+                $(`#${replies[i].Id}Edit`).hide();
+                $(`#${replies[i].Id}Endorse`).hide();
 
+            }
           if(replies[i].Endorsed){
               //alert(threads[i].Endorsed);
               $(`#${replies[i].Id}status`).append("| Endorsed |");
