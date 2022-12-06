@@ -357,7 +357,7 @@
       </div>
     </div>
     <!--Login modal-->
-    <div class="modal fade" id="LoginPageModal" tabindex="-1" aria-labelledby="Loginpagemodal" aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal " id="LoginPageModal" tabindex="-1" aria-labelledby="Loginpagemodal" aria-hidden="true" data-bs-backdrop="static">
         <div class="modal-dialog">
             <!--This is where the modal content background and text color are set-->
             <div class="modal-content text-white">
@@ -396,20 +396,25 @@
         Name: "username",
         Permission: "student"
       }
-      var ThreadOrComment = 1;
-      socket.emit('GetAllThreads');
+        var ThreadOrComment = 1;
+        //forces the login modal to appear
+            $(document).ready(function () {
+                $("#LoginPageModal").modal("show");
+            });
 
-     // student button listener on login modal, being used for testing atm
-    $("#StudentButton").click(function () {
-        console.log("Student button pressed");
-        UserInformation.Name = $("input[id=LoginUsername]").val();
-        UserInformation.Name = UserInformation.Name.replaceAll(" ", "_");
-        $("input[id=LoginUsername]").val("");
-        UserInformation.Permission = "student";
-        //this updates the page to reflect the visibility changes caused by different level of user permissions
         socket.emit('GetAllThreads');
 
-    });
+        // student button listener on login modal, being used for testing atm
+        $("#StudentButton").click(function () {
+            console.log("Student button pressed");
+            UserInformation.Name = $("input[id=LoginUsername]").val();
+            UserInformation.Name = UserInformation.Name.replaceAll(" ", "_");
+            $("input[id=LoginUsername]").val("");
+            UserInformation.Permission = "student";
+            //this updates the page to reflect the visibility changes caused by different level of user permissions
+            socket.emit('GetAllThreads');
+
+        });
     $("#InstructorButton").click(function () {
         console.log("Instructor button pressed");
         UserInformation.Name = $("input[id=LoginUsername]").val();
@@ -447,7 +452,7 @@
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Edit" class="threadOpt" data-bs-toggle="modal" data-bs-target="#EditOrDelete">Edit</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Delete" class="btn-danger"data-bs-toggle="modal" data-bs-target="#DeletePost">Delete</button>`);
             $(`#${threads[i].Id}`).append(`<button type="button" id="${threads[i].Id}Endorse" class="threadOpt">Endorse</button>`);
-            $(`#${threads[i].Id}`).append(`<p id="${threads[i].Id}Tag" style="display: inline-block" class="threadOpt">Tag: ${threads[i].Tag}</p>`);
+            $(`#${threads[i].Id}`).append(`<p id="${threads[i].Id}Tag" style="padding:3px; margin-left:9.9px; display: inline-block" class="threadOpt">Tag: ${threads[i].Tag}</p>`);
             
             //hides options based on user permission unless user is the author.
             if (UserInformation.Permission == "admin" || UserInformation.Name == threads[i].Author) {
