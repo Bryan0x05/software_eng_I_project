@@ -473,6 +473,7 @@
             });
 
             $(`#${threads[i].Id}Edit`).click(function(){
+              $('#EditThreadTitle').show();
               global_EDIT_ID = threads[i];
             });
         }
@@ -588,6 +589,7 @@
           });
 
           $(`#${replies[i].Id}Edit`).click(function(){
+              $('#EditThreadTitle').hide();
               global_EDIT_ID = replies[i];
           });
         }
