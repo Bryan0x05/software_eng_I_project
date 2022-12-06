@@ -398,10 +398,12 @@
       }
       var ThreadOrComment = 1;
       socket.emit('GetAllThreads');
+
      // student button listener on login modal, being used for testing atm
     $("#StudentButton").click(function () {
         console.log("Student button pressed");
         UserInformation.Name = $("input[id=LoginUsername]").val();
+        UserInformation.Name = UserInformation.Name.replaceAll(" ", "_");
         $("input[id=LoginUsername]").val("");
         UserInformation.Permission = "student";
         //this updates the page to reflect the visibility changes caused by different level of user permissions
@@ -411,20 +413,13 @@
     $("#InstructorButton").click(function () {
         console.log("Instructor button pressed");
         UserInformation.Name = $("input[id=LoginUsername]").val();
+        UserInformation.Name = UserInformation.Name.replaceAll(" ", "_");
         $("input[id=LoginUsername]").val("");
         UserInformation.Permission = "admin";
         //this updates the page to reflect the visibility changes caused by different level of user permissions
         socket.emit('GetAllThreads');
 
     });
-      function TestFunction() {
-
-        //socket.emit('CreateThread', {Author: "Bryan", Title: "This is a cool site", Body: "Team 5 rules", Tag: "Bragging"})
-        
-        //socket.emit('GetNestedDiscussionBoard');
-        //socket.emit('GetNestedThread', {Id: "alex_1669611033378"});
-        //socket.emit('DeletePost', {User: "admin", PostId: threads[threads.length-1].Id});
-      }
 
       socket.on('GetAllThreads', function(msg) {
         ThreadOrComment = 1;
