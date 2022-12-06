@@ -48,7 +48,7 @@ class Comment {
         this.Author = Author;
         this.Body = Body;
         this.ParentId = ParentId;
-        this.ParentAuthor = ParentAuthor,
+        this.ParentAuthor = "@" + ParentAuthor,
         this.TimeStamp = Date.now();
         this.Id = "" + this.Author + "_" + this.TimeStamp;
         this.Upvoters = [];
