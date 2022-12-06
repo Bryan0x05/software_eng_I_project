@@ -40,6 +40,7 @@ class Thread {
         this.Edited = false;
         this.Endorsed = false;
         this.Replies = [];
+        this.isComment = false;
     }
 }
 
@@ -55,6 +56,7 @@ class Comment {
         this.Downvoters = [];
         this.Edited = false;
         this.Endorsed = false;
+        this.isComment = true;
     }
 }
 
